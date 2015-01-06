@@ -1,0 +1,8 @@
+PrebuiltRuntimeLua
+PrebuiltRuntimeLua.ipa
+*.app
+*.ttf
+frameworks/
+src/cocos/
+src/framework
+runtime/
