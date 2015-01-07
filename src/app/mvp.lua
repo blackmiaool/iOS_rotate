@@ -5,13 +5,15 @@ local shield_r=screen_x/640*200
 local shield_w=200
 local shield_rw=200
 local function core_create()
-
-    local core=cc.Sprite:create("core.png")
-    core:setScale(core_r*2/core:getContentSize().width)
+    
+    --local core=cc.DrawNode:create()
+    local core=cc.NVGDrawNode:create()
+    core:drawCircle(cc.p(0,0),280*screen_scale,cc.c4f(1,1,1,0.7) )
+    --core:drawCircle(cc.p(0,0),100,1,3,false,cc.c4f(0,1,1,1))
     core:setPhysicsBody(cc.PhysicsBody:createCircle(core_r,
         cc.PhysicsMaterial(1000,1,100)))
     core:getPhysicsBody():setGravityEnable(false)
-    core:getTexture():setAntiAliasTexParameters()
+    --core:getTexture():setAntiAliasTexParameters()
     core:getPhysicsBody():setContactTestBitmask(0x1)
     return core
 end

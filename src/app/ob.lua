@@ -74,8 +74,17 @@ function ob_circle_init(ob,a,num,color,judge_func,...)
 end
 
 function ob_circle_create(width,a,color)
-    local ob=cc.DrawNode:create()
-    ob:drawSolidCircle(cc.p(0,0),width/2,100,1000,color)
+
+    --gl.hint(gl.LINE_SMOOTH_HINT, gl.NICEST);
+--    local ob=cc.DrawNode:create()
+--    ob:drawSolidCircle(cc.p(0,0),width/2,100,1000,color)
+    local ob=cc.NVGDrawNode:create()
+    
+    
+    ob:drawSolidCircle(cc.p(0,0),width/2,color)
+    --ob:drawRect(cc.rect(100,30,10,10),color)
+    --ob:drawSolidCircle(cc.p(100,0),width/2,color)
+    
     ob:setAnchorPoint(cc.p(0.5,0.5))
     ob:setPhysicsBody(cc.PhysicsBody:createCircle(width/2,cc.PhysicsMaterial(10000,1,0)))
     local num=a
@@ -83,19 +92,26 @@ function ob_circle_create(width,a,color)
     ob_circle_init(ob,a,num,color,circle_in,width)
     return ob
 end
-function ob_loop_create(R,width,a,color)    
-    local ob=cc.DrawNode:create()
-    r=R-width
-    ob:drawSolidCircle(cc.p(0,0),R,100,1000,color)
-    ob:setAnchorPoint(cc.p(0.5,0.5))
-    local mk=cc.DrawNode:create()
-    mk:drawSolidCircle(cc.p(0,0),r,100,1000,cc.c4f(0,0,0,1))
-    local mask=cc.ClippingNode:create(mk)
-    mask:setInverted(false)
-    --mask:setAlphaThreshold(0)
-    mask:setInverted(true)
-    mask:addChild(ob)
-    ob=mask
+function ob_loop_create(R,width,a,color) 
+    r=R-width 
+    local ob=cc.NVGDrawNode:create()
+    ob:drawCircle(cc.p(0,0),R,color)
+    ob:setLineWidth(3)
+--    local ob=cc.NVGDrawNode:create()
+--    ob:drawSolidCircle(cc.p(0,0),R,color)
+--    --local ob=cc.DrawNode:create()
+    
+--    --ob:drawSolidCircle(cc.p(0,0),R,100,1000,color)
+--    ob:setAnchorPoint(cc.p(0.5,0.5))
+--    local mk=cc.NVGDrawNode:create()
+--    mk:drawSolidCircle(cc.p(0,0),r,cc.c4f(0,0,0,1))
+--    --mk:drawSolidCircle(cc.p(0,0),r,100,1000,cc.c4f(0,0,0,1))
+--    local mask=cc.ClippingNode:create(mk)
+--    mask:setInverted(false)
+--    --mask:setAlphaThreshold(0)
+--    mask:setInverted(true)
+--    mask:addChild(ob)
+--    ob=mask
     ob:setAnchorPoint(cc.p(0.5,0.5))
     ob:setPhysicsBody(cc.PhysicsBody:createCircle(R,cc.PhysicsMaterial(10000,1,0)))
     local num=a

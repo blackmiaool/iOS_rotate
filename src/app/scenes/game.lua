@@ -115,12 +115,11 @@ function GameScene:start()
         local ob_test=ob_loop_with_circles(140*screen_scale,20*screen_scale,40,num,90,random_color(),{random_color(),random_color(),random_color()})
 
         scene:addChild(ob_test)
-        ob_test:setPosition(screen_x/4*R,screen_y*1.5)
+        ob_test:setPosition(screen_x/4*R,screen_y*0.7)
         local move=cc.MoveBy:create(1,cc.p(0,-100))
         move=cc.RepeatForever:create(move)
         ob_test:runAction(move)
 
-        local R=math.random(50,80)
     end
 
 
@@ -207,6 +206,9 @@ function GameScene.create()
     --scene:getPhysicsWorld():setDebugDrawMask(cc.PhysicsWorld.DEBUGDRAW_ALL)
     local cover=require("cover")
     local score=require("score")
+    local ob_layer=cc.Layer:create()
+--    scene.ob_layer=ob_layer
+--    scene:addChild(ob_layer)
     --local setting=cc.Sprite:create("setting.png")
     local setting=cc.ControlButton:create()
     local score_x,score_y=screen_x/2,screen_y*14/15
@@ -246,13 +248,15 @@ function GameScene.create()
     --button1
 
     local open_btn=cc.ControlButton:create()
-    local btn_sprite=cc.Sprite:create("setting2.png")
+    local btn_sprite=cc.Sprite:create("setting.png")
+    btn_sprite:getTexture():setAntiAliasTexParameters()
     btn_sprite:setScale(0.3*screen_scale)
 
     open_btn:setTitleLabelForState(btn_sprite,cc.CONTROL_STATE_NORMAL)
     open_btn:registerControlEventHandler(function()print("down")end,cc.CONTROL_EVENTTYPE_TOUCH_UP_INSIDE)
     open_btn:setPosition(screen_x*0.90,score_y)
     scene:addChild(open_btn,11)
+
 --    <span style="background-color:#E53333;">he crazy ones. The </span>misf
 --    local root=ccui.RichText:create()
 --    local re1 = ccui.RichElementText:create( 1, cc.c3b(255, 255, 255), 255, "This coloite. ", "Helvetica", 20 )
@@ -264,6 +268,11 @@ function GameScene.create()
 --    root:setContentSize(cc.size(100, 100))  
 --    scene:addChild(root)
 --    root:setPosition(200,200)
+--    ccui.RichText:create():removeElement(ccui.RichElement)
+
+    
+    
+
     return scene
 end
 

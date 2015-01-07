@@ -18,6 +18,8 @@ function MyApp:run()
     local scene = require("game")
     local gameScene = scene:create()
 
+
+    
     if cc.Director:getInstance():getRunningScene() then
         cc.Director:getInstance():replaceScene(gameScene)
     else
