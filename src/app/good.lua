@@ -26,7 +26,7 @@ function good_line_create(angle,length,color)
     line.kind="ob_good"   
     local x1,y1=0,0
     local x2,y2=length*math.cos(angle/xishu),length*math.sin(angle/xishu)
- 
+
     line:setScale(0.1,length/line:getContentSize().height)
 
     --line:drawLine(cc.p(x1,y1),cc.p(x2,y2),color)

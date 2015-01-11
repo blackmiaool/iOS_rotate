@@ -285,32 +285,34 @@ scheduler.scheduleUpdateGlobal(listener)
     local ob_layer=cc.Layer:create()
     scene.ob_layer=ob_layer
     scene:addChild(ob_layer)
-    -- local ob=ob_frame_create(cc.p(50,50),cc.p(150,150))
-    -- ob_layer:addChild(ob)
-    -- ob:setPosition(100,300)
-    local left_edge=screen_x/20
-    local gap=screen_x*18/20/9
-
-    local ob=good(cc.p(10,10))
+    local ob=bad_gap_create(cc.p(50,50),color_pre[1])
     ob_layer:addChild(ob)
     ob:setPosition(100,300)
-    local dis_pre={};
 
-    local map={
-    {3,6},
-    {1,5},
-    {4,9},
-    {3,6},
-    {2,5},
-    {5,9},
-    {3,7},
-    }
 
-    for i,j in pairs(map) do
-        local ob=bad_rect_create(cc.p((j[2]-j[1])*gap,30))
-        ob_layer:addChild(ob)
-        ob:setPosition(left_edge+j[1]*gap,150*i+300)
-    end
+    -- local left_edge=screen_x/20
+    -- local gap=screen_x*18/20/9
+
+    -- local ob=good(cc.p(10,10))
+    -- ob_layer:addChild(ob)
+    -- ob:setPosition(100,300)
+    -- local dis_pre={};
+
+    -- local map={
+    -- {3,6},
+    -- {1,5},
+    -- {4,9},
+    -- {3,6},
+    -- {2,5},
+    -- {5,9},
+    -- {3,7},
+    -- }
+
+    -- for i,j in pairs(map) do
+    --     local ob=bad_rect_create(cc.p((j[2]-j[1])*gap,30))
+    --     ob_layer:addChild(ob)
+    --     ob:setPosition(left_edge+j[1]*gap,150*i+300)
+    -- end
 
     return scene
 end

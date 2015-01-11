@@ -92,7 +92,40 @@ end
 
 
 
+function bad_gap_create(dest,color_set)
+    local color=color_set
+    local r=10
+    local line=cc.Node:create()
+    local gap=40
+    local line_left=line_circle_create(90,r,color)
+    local line_right=line_circle_create(0,r,color)
+    line_left:setPosition(-(r+gap/2),0)
+    line_right:setPosition((r+gap/2),0)
+    line:addChild(line_left)
+     line:addChild(line_right)
+    return line;
+end 
 
+function line_circle_create(angle,r,color)
+    local line_circle=cc.Node:create()
+
+    local circle=cc.NVGDrawNode:create()
+    circle:drawSolidCircle(cc.p(0,0),r,color)
+
+    local line=cc.NVGDrawNode:create()
+    if angle==0 then        
+        line:drawRect(cc.p(0,-r),cc.p(screen_x,r),color)
+    else
+        line:drawRect(cc.p(0,-r),cc.p(-screen_x,r),color)
+    end
+    line:setFill(true)
+    line:setFillColor(color)
+
+    line_circle:addChild(circle)
+    line_circle:addChild(line)
+    --line_circle:setRotation(angle)
+    return line_circle
+end
 
 
 
