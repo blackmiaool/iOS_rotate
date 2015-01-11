@@ -1,20 +1,20 @@
 require("miaolib")
 
-local core_r=screen_x/640*150
-local shield_r=screen_x/640*200
+local core_r=screen_x/640*160 
+local shield_r=screen_x/640*160
 local shield_w=200
-local shield_rw=200
+local shield_rw=150
 local function core_create()
     
     --local core=cc.DrawNode:create()
     local core=cc.NVGDrawNode:create()
-    core:drawCircle(cc.p(0,0),280*screen_scale,cc.c4f(1,1,1,0.7) )
+    core:drawCircle(cc.p(0,0),core_r,cc.c4f(1,1,1,0.7) )
     --core:drawCircle(cc.p(0,0),100,1,3,false,cc.c4f(0,1,1,1))
-    core:setPhysicsBody(cc.PhysicsBody:createCircle(core_r,
-        cc.PhysicsMaterial(1000,1,100)))
-    core:getPhysicsBody():setGravityEnable(false)
-    --core:getTexture():setAntiAliasTexParameters()
-    core:getPhysicsBody():setContactTestBitmask(0x1)
+--    core:setPhysicsBody(cc.PhysicsBody:createCircle(core_r,
+--        cc.PhysicsMaterial(1000,1,100)))
+--    core:getPhysicsBody():setGravityEnable(false)
+--    --core:getTexture():setAntiAliasTexParameters()
+--    core:getPhysicsBody():setContactTestBitmask(0x1)
     return core
 end
 
@@ -79,7 +79,7 @@ local function shield_create()
 end
 local mvp=cc.Node:create()
 local shield_node=shield_create()
-mvp:addChild(shield_node)
+mvp:addChild(shield_node,1)
 mvp.shield_node=shield_node
 mvp.shield=shield_node.shield
 

@@ -1,7 +1,8 @@
-screen_x=640/2
-screen_y=1136/2
+
 main_scene=nil
 screen_width,screen_height=cc.Director:getInstance():getVisibleSize().width,cc.Director:getInstance():getVisibleSize().height
+screen_x=screen_width
+screen_y=screen_height
 screen_scale=screen_width/1136
 print(screen_scale)
 color_pre={
@@ -14,3 +15,4 @@ color_pre={
 function random_color()
     return color_pre[math.random(1,5)]
 end
+down_rate=400*screen_scale

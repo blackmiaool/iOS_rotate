@@ -19,9 +19,9 @@
 	<key>finishColorBlue</key>
 	<real>1</real>
 	<key>finishColorGreen</key>
-	<real>0.49000000953674316</real>
+	<real>1</real>
 	<key>finishColorRed</key>
-	<real>0.0</real>
+	<real>1</real>
 	<key>finishColorVarianceAlpha</key>
 	<real>0.74000000953674316</real>
 	<key>finishColorVarianceBlue</key>
@@ -103,7 +103,7 @@
 	<key>tangentialAcceleration</key>
 	<real>0.0</real>
 	<key>textureFileName</key>
-	<string>blue2.png</string>
+	<string>blank.png</string>
 	<key>textureImageData</key>
 	<string>H4sIAAAAAAAAA+sM8HPn5ZLiYmBg4PX0cAkC0idAmIMNSK6NWDcPSDEWB7k7Maw7J/OSgYHFydPFMaSC8e1lR94DCiKsjg5ef28fcL47ZUn6Jq425f9mldbz/9YdVnZ4oLVh3X47ToEfrCxJHCxODgqNj10cFMwcFFhYhCz8WFiSmEcFRwVHBUec4AOGizNZ/GqePpkFLFoYPF39XNY5JTQBAC/E0TSIBAAA</string>
 </dict>

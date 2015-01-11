@@ -1,6 +1,6 @@
 require("miaolib")
 local cover=cc.Layer:create()
-local middle=cc.DrawNode:create()
+local middle=cc.NVGDrawNode:create()
 local line_lenth=10
 local line_space=5
 local move_time=1
@@ -27,6 +27,7 @@ touch2start:setScale(0.9)
 touch2start:setTextColor(cc.c4b(255,255,255,255))
 touch2start:setPosition(screen_x/2,screen_y*3/5)
 touch2start:setColor(cc.c3b(255,251,74))
+touch2start:setPositionZ(1)
 cover:addChild(touch2start)
 local touch_tip=cc.Label:createWithTTF(ttfConfig,"", cc.VERTICAL_TEXT_ALIGNMENT_CENTER,screen_x*3/4)
 touch_tip:setString("Touch Left or Right to Rotate the Ball")
@@ -34,6 +35,7 @@ touch_tip:setScale(0.5)
 
 touch_tip:setTextColor(cc.c4b(255,255,255,255))
 touch_tip:setPosition(screen_x/2,screen_y/2)
+touch_tip:setPositionZ(1)
 cover:addChild(touch_tip)
 
 function cover:remove()

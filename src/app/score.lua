@@ -6,5 +6,8 @@ local score = cc.Label:createWithTTF(ttfConfig,"", cc.VERTICAL_TEXT_ALIGNMENT_CE
 score:setString("10")
 score:setTextColor(cc.c4b(255,255,255,255))
 
+function score:setNum(num)
+	score:setString(""..num)
+end
 
 return score

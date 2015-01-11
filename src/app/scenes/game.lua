@@ -1,11 +1,15 @@
 require("miaolib")
 require("ob")
+require("laser")
+require("ob_frame")
+require("miaoconfig")
+require("good")
 local GameScene = class("GameScene",function()
     return cc.Scene:createWithPhysics()
-end)
-
+    end)
+local rear_enable=false
 function getAngle(x,y)
-    
+
     return -(math.atan2(y,x)*xishu)
 end
 function GameScene:layer_create()
@@ -19,6 +23,9 @@ function GameScene:layer_create()
         end        
     end
     local function touchFunc(x,y,start)
+            if not rear_enable then
+            return ;
+        end
         local choose_this=x2choose(x)
         if choose_this~=choose or start then
             if choose_this=="left" then
@@ -28,33 +35,39 @@ function GameScene:layer_create()
             end
             choose=choose_this
         end
---        local mvp_x,mvp_y=self.mvp:getPosition()
---        self.mvp:setshieldAngle(        
---            getAngle(x-self.mvp:getPositionX(),
---            y-self.mvp:getPositionY()),2*math.sqrt((x-mvp_x)*(x-mvp_x)+(y-mvp_y)*(y-mvp_y)))
-    end
-    local function onTouchBegan(x, y)
-        touchFunc(x,y,true)
-        return true
-    end
+        --        local mvp_x,mvp_y=self.mvp:getPosition()
+        --        self.mvp:setshieldAngle(        
+        --            getAngle(x-self.mvp:getPositionX(),
+        --            y-self.mvp:getPositionY()),2*math.sqrt((x-mvp_x)*(x-mvp_x)+(y-mvp_y)*(y-mvp_y)))
+end
+local function onTouchBegan(x, y)
+    touchFunc(x,y,true)
+    return true
+end
 
-    local function onTouchMoved(x, y)
-        touchFunc(x,y)
-        return true
+local function onTouchMoved(x, y)
+    touchFunc(x,y)
+    return true
+end
+
+local function onTouchEnded(x, y)
+    if not rear_enable then
+            return ;
+        end
+
+    if main_scene.mvp.shield_node then
+        main_scene.mvp.shield_node:stop()
     end
+    return true
+end
 
-    local function onTouchEnded(x, y)
-        self.mvp.shield_node:stop()
-        return true
-    end
+local function onTouch(eventType, x, y)
 
-    local function onTouch(eventType, x, y)
-
-        if eventType =="began"  then
-            return onTouchBegan(x, y)
+    if eventType =="began"  then
+        return onTouchBegan(x, y)
         elseif eventType == "moved" then
             return onTouchMoved(x, y)
-            
+
         else
             return onTouchEnded(x, y)
         end
@@ -73,16 +86,22 @@ function GameScene:start()
     local bg=self.bg
     local mvp=self.mvp
     local scene=self
+
     print("start")
     mvp.shield:out()
-
-
+    rear_enable=true
+    local ac_down=cc.MoveBy:create(1,cc.p(0,-down_rate))
+    ac_down=cc.RepeatForever:create(ac_down)
+    scene.ob_layer:runAction(ac_down)
 
     vz=cc.Director:getInstance():getVisibleSize()
     math.randomseed(os.time())
 
     main_scene=scene
     function rear_update()
+        if not rear_enable then
+            return ;
+        end
         local rear=cc.Sprite:create("rear.png")
         rear:setScale(0.4*screen_scale)
         --print(mvp.shield:getPosition())
@@ -114,7 +133,7 @@ function GameScene:start()
         local num=math.random(1,3)
         local ob_test=ob_loop_with_circles(140*screen_scale,20*screen_scale,40,num,90,random_color(),{random_color(),random_color(),random_color()})
 
-        scene:addChild(ob_test)
+        --scene:addChild(ob_test)
         ob_test:setPosition(screen_x/4*R,screen_y*0.7)
         local move=cc.MoveBy:create(1,cc.p(0,-100))
         move=cc.RepeatForever:create(move)
@@ -142,32 +161,30 @@ function GameScene:start()
             if nodeA==mvp.shield then
                 shield=nodeA
                 ob=nodeB
-            elseif nodeB==mvp.shield then
-                shield=nodeB
-                ob=nodeA   
-            end
-            if ob.kind~="ob" then                
-                local v=ob:getPhysicsBody():getVelocity()
-                ob:getPhysicsBody():setVelocity(cc.p(-v.x,-v.y))
-                return nil
-            end
+                elseif nodeB==mvp.shield then
+                    shield=nodeB
+                    ob=nodeA   
+                end
+                if ob.kind=="ob_frame" then                
+                    local v=ob:getPhysicsBody():getVelocity()
+                    print("contact")
+                    local shield_p=mvp.shield_node:convertToWorldSpace(cc.p(mvp.shield:getPosition()))
+                    mvp.shield_node:removeFromParent()
+                    rear_enable=false
 
 
-            --            miao:setPosition(ob:getPosition())
-            ob:remove()
-            --print(shield:getPhysicsBody():getVelocity())
+
+                    local miao=cc.ParticleSystemQuad:create("contact.plist")
+                    miao:setPosition(shield_p)
+                    scene:addChild(miao)
+
+                    return nil
+                    elseif ob.kind=="ob_good" then  
+                        ob:remove()
+                    end
             shield:getPhysicsBody():setVelocity(cc.p(0,0))
-            --print(shield:getPosition())
-        elseif nodeA==mvp.core or nodeB==mvp.core then
-            if nodeA==mvp.core then
-                core=nodeA
-                ob=nodeB
-            elseif nodeB==mvp.core then
-                core=nodeB
-                ob=nodeA            
-            end 
-            core:getPhysicsBody():setVelocity(cc.p(0,0))
-        end                
+
+        end              
         return retval        
     end
 
@@ -184,7 +201,7 @@ function GameScene:start()
     miao:setPosition(screen_x/2,screen_y/2)
 
     local left_body=cc.Sprite:create()
-    
+
     local right_body=cc.Sprite:create()
     left_body:setPhysicsBody(cc.PhysicsBody:createEdgeBox({width=100,height=screen_y*2},cc.PhysicsMaterial(100,1,100),3))
     left_body:getPhysicsBody():setDynamic(false)
@@ -200,50 +217,49 @@ end
 
 
 function GameScene.create()
-    local bg=require("background")    
+    local bg=require("background")     
     local scene = GameScene.new()
+    main_scene=scene
     scene:addChild(bg,-10)
-    --scene:getPhysicsWorld():setDebugDrawMask(cc.PhysicsWorld.DEBUGDRAW_ALL)
+    scene:getPhysicsWorld():setDebugDrawMask(cc.PhysicsWorld.DEBUGDRAW_ALL)  
     local cover=require("cover")
     local score=require("score")
-    local ob_layer=cc.Layer:create()
---    scene.ob_layer=ob_layer
---    scene:addChild(ob_layer)
+
     --local setting=cc.Sprite:create("setting.png")
     local setting=cc.ControlButton:create()
     local score_x,score_y=screen_x/2,screen_y*14/15
     score:setPosition(score_x,score_y)
     scene:addChild(score,10)
-    
+
     local function onTouch(eventType, x, y)
 
         if eventType =="began"  then
             return true
-        elseif eventType == "moved" then
-            return true
-        else
-            print("miao")
-            cover:remove()
-            scene:start(bg)
-            
-            return true
-        end
-    end
-    
-    cover:registerScriptTouchHandler(onTouch)
-    cover:setTouchEnabled(true)
-    scene:addChild(cover,10)
-    
-    local mvp=require("mvp.lua")
-    scene:addChild(mvp,11)
-    mvp:setPosition(screen_x/2,screen_y/4)
-   
-    scene.mvp=mvp
-    
-    --mvp.shield_node:setRotation(-90)
-    
+            elseif eventType == "moved" then
+                return true
+            else
+                print("miao")
+                cover:remove()
+                scene:start(bg)
 
-         
+                return true
+            end
+        end
+
+        cover:registerScriptTouchHandler(onTouch)
+        cover:setTouchEnabled(true)
+        scene:addChild(cover)
+
+        local mvp=require("mvp.lua")
+        scene:addChild(mvp,11)
+        mvp:setPosition(screen_x/2,screen_y/4)
+
+        scene.mvp=mvp
+
+    --mvp.shield_node:setRotation(-90)
+
+
+
 
     --button1
 
@@ -257,21 +273,44 @@ function GameScene.create()
     open_btn:setPosition(screen_x*0.90,score_y)
     scene:addChild(open_btn,11)
 
---    <span style="background-color:#E53333;">he crazy ones. The </span>misf
---    local root=ccui.RichText:create()
---    local re1 = ccui.RichElementText:create( 1, cc.c3b(255, 255, 255), 255, "This coloite. ", "Helvetica", 20 )
---    local re2 = ccui.RichElementText:create( 2, cc.c3b(0, 255, 255), 255, "This colite. ", "Helvetica", 20 )
---    
---    root:pushBackElement(re1)
---    root:pushBackElement(re2)
---    root:ignoreContentAdaptWithSize(false) 
---    root:setContentSize(cc.size(100, 100))  
---    scene:addChild(root)
---    root:setPosition(200,200)
---    ccui.RichText:create():removeElement(ccui.RichElement)
+    local scheduler = require(cc.PACKAGE_NAME .. ".scheduler")
+    function listener()
+    --print("l")
+end
+scheduler.scheduleUpdateGlobal(listener)
+    --    local laser=laser_create(90)
+    --    laser:setPosition(100,100)
+    --    scene:addChild(laser)
 
-    
-    
+    local ob_layer=cc.Layer:create()
+    scene.ob_layer=ob_layer
+    scene:addChild(ob_layer)
+    -- local ob=ob_frame_create(cc.p(50,50),cc.p(150,150))
+    -- ob_layer:addChild(ob)
+    -- ob:setPosition(100,300)
+    local left_edge=screen_x/20
+    local gap=screen_x*18/20/9
+
+    local ob=good(cc.p(10,10))
+    ob_layer:addChild(ob)
+    ob:setPosition(100,300)
+    local dis_pre={};
+
+    local map={
+    {3,6},
+    {1,5},
+    {4,9},
+    {3,6},
+    {2,5},
+    {5,9},
+    {3,7},
+    }
+
+    for i,j in pairs(map) do
+        local ob=bad_rect_create(cc.p((j[2]-j[1])*gap,30))
+        ob_layer:addChild(ob)
+        ob:setPosition(left_edge+j[1]*gap,150*i+300)
+    end
 
     return scene
 end

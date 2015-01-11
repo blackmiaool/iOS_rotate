@@ -41,31 +41,44 @@ function ob_circle_init(ob,a,num,color,judge_func,...)
     ob:runAction(ac)
     function ob:remove()
         local v=100
-        local x_origin,y_origin=ob:getPosition()
+        local org=ob:getParent():convertToWorldSpace(cc.p(ob:getPosition()))
+        local x_origin,y_origin=org.x,org.y
         local parent=ob:getParent()
         for i=1,frag_num do
             local frag=cc.Sprite:create("frag.png")
             local scale=a/frag:getContentSize().width
             local x,y;
-
+            
             repeat
                 x=math.random(-width/2,width/2)
                 y=math.random(-width/2,width/2)
             until judge_func(x,y,other)
+            x=x+x_origin
+            y=y+y_origin
+            frag:setPosition(x,y)
 
-            frag:setPosition(x+x_origin,y+y_origin)
-
-            frag:setPhysicsBody(cc.PhysicsBody:createBox({width=a,height=a},cc.PhysicsMaterial(-10,1,0)))
-
-            frag:getPhysicsBody():setVelocity(cc.p(math.random(-v,v),math.random(-v,v)))
-            frag:getPhysicsBody():setGravityEnable(false)
+--            frag:setPhysicsBody(cc.PhysicsBody:createBox({width=a,height=a},cc.PhysicsMaterial(-10,1,0)))
+--
+--            frag:getPhysicsBody():setVelocity(cc.p(math.random(-v,v),math.random(-v,v)))
+--            frag:getPhysicsBody():setGravityEnable(false)
             frag:setScale(scale)
+            local ph1_deltax=math.random(-50,50)*screen_scale
+            local ph1_deltay=math.random(-50,50)*screen_scale
+            local ph1_time=math.random(2,4)/10
+            local ph1_scale=math.random(2,4)/10
             
+            local ph1_ac_moveBy=cc.MoveBy:create(ph1_time,cc.p(ph1_deltax,ph1_deltay))
+            local ph1_ac_scale=cc.ScaleBy:create(ph1_time,ph1_scale,ph1_scale)
+            local moveBy=cc.Spawn:create(ph1_ac_moveBy,ph1_ac_scale)
+            moveBy=cc.EaseSineOut:create(moveBy)
+            
+            local move=cc.MoveTo:create(0.5,cc.p(main_scene.mvp:getPosition()))
+            move=cc.EaseSineOut:create(move)
             local ac=cc.Sequence:create(
-                cc.ScaleBy:create(1,0,0),cc.CallFunc:create(function()frag:removeFromParent()end,{0}))
+                moveBy,move,cc.CallFunc:create(function()frag:removeFromParent()end,{0}))
             frag:runAction(ac)
 
-            parent:addChild(frag)
+            main_scene:addChild(frag)
 
         end
         ob:removeFromParent()
