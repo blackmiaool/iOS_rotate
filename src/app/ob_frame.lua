@@ -91,20 +91,53 @@ function bad_rect_create(dest)
 end
 
 
+--dir 0:left 1:middle 2:center
+function bad_gap_set_create(color,dir)
+    local node=cc.Node:create()
+    local line_gap=100*ss
+    local line_delta=60*ss
+    for i=1,3 do
+        local gap=bad_gap_create(color)
+        gap:setPosition((dir-1)*line_delta*(i-2),line_gap*(i-2))
+        node:addChild(gap)
+    end
+    return node;
+end
 
-function bad_gap_create(dest,color_set)
+function bad_gap_create(color_set)
     local color=color_set
-    local r=10
+    local r=30*screen_scale
     local line=cc.Node:create()
-    local gap=40
+    local gap=300*screen_scale
+    color=random_color()
     local line_left=line_circle_create(90,r,color)
+    color=random_color()
     local line_right=line_circle_create(0,r,color)
     line_left:setPosition(-(r+gap/2),0)
     line_right:setPosition((r+gap/2),0)
     line:addChild(line_left)
-     line:addChild(line_right)
+    line:addChild(line_right)
     return line;
 end 
+
+
+function bad_delta_create(color_set,dir)
+    local color=color_set
+    local r=30*screen_scale
+    local line=cc.Node:create()
+    local gap=300*screen_scale
+    local delta=0*screen_scale
+    color=random_color()
+    local line_left=line_circle_create(90,r,color)
+    color=random_color()
+    local line_right=line_circle_create(0,r,color)
+    line_left:setPosition(delta,(gap*(dir-0.5)*2))
+    line_right:setPosition(-delta,0)
+    line:addChild(line_left)
+    line:addChild(line_right)
+    return line;
+end 
+
 
 function line_circle_create(angle,r,color)
     local line_circle=cc.Node:create()

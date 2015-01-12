@@ -3,7 +3,7 @@ require("miaolib")
 local core_r=screen_x/640*160 
 local shield_r=screen_x/640*160
 local shield_w=200
-local shield_rw=150
+local shield_rw=180
 local function core_create()
     
     --local core=cc.DrawNode:create()

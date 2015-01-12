@@ -4,6 +4,7 @@ screen_width,screen_height=cc.Director:getInstance():getVisibleSize().width,cc.D
 screen_x=screen_width
 screen_y=screen_height
 screen_scale=screen_width/1136
+ss=screen_scale
 print(screen_scale)
 color_pre={
     cc.c4f(74/255,184/255,255/255,1),

@@ -23,7 +23,7 @@ function GameScene:layer_create()
         end        
     end
     local function touchFunc(x,y,start)
-            if not rear_enable then
+        if not rear_enable then
             return ;
         end
         local choose_this=x2choose(x)
@@ -52,8 +52,8 @@ end
 
 local function onTouchEnded(x, y)
     if not rear_enable then
-            return ;
-        end
+        return ;
+    end
 
     if main_scene.mvp.shield_node then
         main_scene.mvp.shield_node:stop()
@@ -90,12 +90,15 @@ function GameScene:start()
     print("start")
     mvp.shield:out()
     rear_enable=true
+math.randomseed(os.time())
+
+
     local ac_down=cc.MoveBy:create(1,cc.p(0,-down_rate))
     ac_down=cc.RepeatForever:create(ac_down)
-    scene.ob_layer:runAction(ac_down)
+    -- scene.ob_layer:runAction(ac_down)
 
     vz=cc.Director:getInstance():getVisibleSize()
-    math.randomseed(os.time())
+    
 
     main_scene=scene
     function rear_update()
@@ -129,15 +132,20 @@ function GameScene:start()
 
 
     function scene_update()
-        local R=math.random(1,3)
-        local num=math.random(1,3)
-        local ob_test=ob_loop_with_circles(140*screen_scale,20*screen_scale,40,num,90,random_color(),{random_color(),random_color(),random_color()})
+        -- local R=math.random(1,3)
+        -- local num=math.random(1,3)
+        -- local ob_test=ob_loop_with_circles(140*screen_scale,20*screen_scale,40,num,90,random_color(),{random_color(),random_color(),random_color()})
 
-        --scene:addChild(ob_test)
-        ob_test:setPosition(screen_x/4*R,screen_y*0.7)
-        local move=cc.MoveBy:create(1,cc.p(0,-100))
-        move=cc.RepeatForever:create(move)
-        ob_test:runAction(move)
+        -- --scene:addChild(ob_test)
+        -- ob_test:setPosition(screen_x/4*R,screen_y*0.7)
+        -- local move=cc.MoveBy:create(1,cc.p(0,-100))
+        -- move=cc.RepeatForever:create(move)
+        -- ob_test:runAction(move)
+    local ob=bad_delta_create(color_pre[1],0)
+
+    ob:runAction(cc.MoveBy:create(6,cc.p(0,-screen_y*1.3)))
+    scene:addChild(ob)
+    ob:setPosition(screen_x/2,screen_y)
 
     end
 
@@ -182,48 +190,48 @@ function GameScene:start()
                     elseif ob.kind=="ob_good" then  
                         ob:remove()
                     end
-            shield:getPhysicsBody():setVelocity(cc.p(0,0))
+                    shield:getPhysicsBody():setVelocity(cc.p(0,0))
 
-        end              
-        return retval        
-    end
+                end              
+                return retval        
+            end
 
-    local contact=cc.EventListenerPhysicsContact:create()
-    contact:registerScriptHandler(onContactBegin,cc.Handler.EVENT_PHYSICS_CONTACT_BEGIN)
-    contact:setEnabled(true)
+            local contact=cc.EventListenerPhysicsContact:create()
+            contact:registerScriptHandler(onContactBegin,cc.Handler.EVENT_PHYSICS_CONTACT_BEGIN)
+            contact:setEnabled(true)
 
-    local eventDispatcher = scene:getEventDispatcher()
-    eventDispatcher:setEnabled(true)
+            local eventDispatcher = scene:getEventDispatcher()
+            eventDispatcher:setEnabled(true)
 
-    eventDispatcher:addEventListenerWithSceneGraphPriority(contact, scene)
-    local miao=cc.ParticleSystemQuad:create("bg.plist")
-    scene:addChild(miao)
-    miao:setPosition(screen_x/2,screen_y/2)
+            eventDispatcher:addEventListenerWithSceneGraphPriority(contact, scene)
+            local miao=cc.ParticleSystemQuad:create("bg.plist")
+            scene:addChild(miao)
+            miao:setPosition(screen_x/2,screen_y/2)
 
-    local left_body=cc.Sprite:create()
+            local left_body=cc.Sprite:create()
 
-    local right_body=cc.Sprite:create()
-    left_body:setPhysicsBody(cc.PhysicsBody:createEdgeBox({width=100,height=screen_y*2},cc.PhysicsMaterial(100,1,100),3))
-    left_body:getPhysicsBody():setDynamic(false)
-    left_body:setPosition(-50,screen_y/2)
-    right_body:setPhysicsBody(cc.PhysicsBody:createEdgeBox({width=100,height=screen_y*2},cc.PhysicsMaterial(100,1,100),3))
-    right_body:setPosition(50+screen_x,screen_y/2)
-    right_body:getPhysicsBody():setDynamic(false)
-    scene:addChild(left_body)
-    scene:addChild(right_body)
+            local right_body=cc.Sprite:create()
+            left_body:setPhysicsBody(cc.PhysicsBody:createEdgeBox({width=100,height=screen_y*2},cc.PhysicsMaterial(100,1,100),3))
+            left_body:getPhysicsBody():setDynamic(false)
+            left_body:setPosition(-50,screen_y/2)
+            right_body:setPhysicsBody(cc.PhysicsBody:createEdgeBox({width=100,height=screen_y*2},cc.PhysicsMaterial(100,1,100),3))
+            right_body:setPosition(50+screen_x,screen_y/2)
+            right_body:getPhysicsBody():setDynamic(false)
+            scene:addChild(left_body)
+            scene:addChild(right_body)
 
-    scene:getPhysicsWorld():setGravity(cc.p(0,-screen_x*2))
-end
+            scene:getPhysicsWorld():setGravity(cc.p(0,-screen_x*2))
+        end
 
 
-function GameScene.create()
-    local bg=require("background")     
-    local scene = GameScene.new()
-    main_scene=scene
-    scene:addChild(bg,-10)
-    scene:getPhysicsWorld():setDebugDrawMask(cc.PhysicsWorld.DEBUGDRAW_ALL)  
-    local cover=require("cover")
-    local score=require("score")
+        function GameScene.create()
+            local bg=require("background")     
+            local scene = GameScene.new()
+            main_scene=scene
+            scene:addChild(bg,-10)
+            scene:getPhysicsWorld():setDebugDrawMask(cc.PhysicsWorld.DEBUGDRAW_ALL)  
+            local cover=require("cover")
+            local score=require("score")
 
     --local setting=cc.Sprite:create("setting.png")
     local setting=cc.ControlButton:create()
@@ -282,12 +290,14 @@ scheduler.scheduleUpdateGlobal(listener)
     --    laser:setPosition(100,100)
     --    scene:addChild(laser)
 
-    local ob_layer=cc.Layer:create()
-    scene.ob_layer=ob_layer
-    scene:addChild(ob_layer)
-    local ob=bad_gap_create(cc.p(50,50),color_pre[1])
-    ob_layer:addChild(ob)
-    ob:setPosition(100,300)
+    -- local ob_layer=cc.Layer:create()
+    -- scene.ob_layer=ob_layer
+    -- scene:addChild(ob_layer)
+    -- local ob=bad_gap_set_create(color_pre[1],0)
+    -- --ob_layer:addChild(ob)
+    -- ob:runAction(cc.MoveBy:create(2,-screen_y*1.3))
+    -- scene:addChild(ob)
+    -- ob:setPosition(math.random(screen_x/6,screen_x/6*5),screen_y)
 
 
     -- local left_edge=screen_x/20
