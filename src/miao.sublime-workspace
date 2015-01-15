@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"move",
+				"move_time	upvalue"
+			],
+			[
+				"line_",
+				"line_delta	local"
+			],
+			[
 				"color",
 				"color_set	parameter"
 			],
@@ -56,10 +64,10 @@
 	"buffers":
 	[
 		{
-			"file": "app/good.lua",
+			"file": "app/ob.lua",
 			"settings":
 			{
-				"buffer_size": 2739,
+				"buffer_size": 5185,
 				"line_ending": "Unix"
 			}
 		},
@@ -67,7 +75,15 @@
 			"file": "app/mvp.lua",
 			"settings":
 			{
-				"buffer_size": 4129,
+				"buffer_size": 4308,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/miaolib.lua",
+			"settings":
+			{
+				"buffer_size": 3877,
 				"line_ending": "Unix"
 			}
 		},
@@ -75,33 +91,7 @@
 			"file": "app/scenes/game.lua",
 			"settings":
 			{
-				"buffer_size": 9162,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "Searching 152 files for \"down_rate\"\n\nUnable to open ~/Documents/HelloWorldlua/res\n0 matches across 0 files\n\n\nSearching 158 files for \"Searching\"\n\nUnable to open ~/Documents/HelloWorldlua/res\n0 matches across 0 files\n\n\nSearching 172 files for \"down_rate\"\n\n/Users/blackmiaool/Documents/coco2/QuickGame/src/app/scenes/game.lua:\n   81      mvp.shield:out()\n   82      rear_enable=true\n   83:     local ac_down=cc.MoveBy:create(1,cc.p(0,-down_rate))\n   84      ac_down=cc.RepeatForever:create(ac_down)\n   85      scene.ob_layer:runAction(ac_down)\n\nUnable to open ~/Documents/HelloWorldlua/res\n/Users/blackmiaool/Documents/coco2/QuickGame/src/app/miaoconfig.lua:\n   16      return color_pre[math.random(1,5)]\n   17  end\n   18: down_rate=50*screen_scale\n\n/Users/blackmiaool/Documents/coco2/QuickGame/src/app/scenes/game.lua:\n   81      mvp.shield:out()\n   82      rear_enable=true\n   83:     local ac_down=cc.MoveBy:create(1,cc.p(0,-down_rate))\n   84      ac_down=cc.RepeatForever:create(ac_down)\n   85      scene.ob_layer:runAction(ac_down)\n\n3 matches across 3 files\n",
-			"settings":
-			{
-				"buffer_size": 1061,
-				"line_ending": "Unix",
-				"name": "Find Results",
-				"scratch": true
-			}
-		},
-		{
-			"file": "app/miaoconfig.lua",
-			"settings":
-			{
-				"buffer_size": 536,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/score.lua",
-			"settings":
-			{
-				"buffer_size": 363,
+				"buffer_size": 9603,
 				"line_ending": "Unix"
 			}
 		},
@@ -109,15 +99,23 @@
 			"file": "app/ob_frame.lua",
 			"settings":
 			{
-				"buffer_size": 4120,
+				"buffer_size": 7697,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/ob.lua",
+			"file": "app/miaoconfig.lua",
 			"settings":
 			{
-				"buffer_size": 5185,
+				"buffer_size": 595,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/good.lua",
+			"settings":
+			{
+				"buffer_size": 2739,
 				"line_ending": "Unix"
 			}
 		}
@@ -195,10 +193,17 @@
 	},
 	"expanded_folders":
 	[
+		"/Users/blackmiaool/Documents/coco2/QuickGame/src/app",
 		"/Users/blackmiaool/Documents/coco2/QuickGame/src/app/scenes"
 	],
 	"file_history":
 	[
+		"/Users/blackmiaool/Documents/coco2/QuickGame/src/app/ob_frame.lua",
+		"/Users/blackmiaool/Documents/coco2/QuickGame/src/app/score.lua",
+		"/Users/blackmiaool/Documents/coco2/QuickGame/src/app/miaoconfig.lua",
+		"/Users/blackmiaool/Documents/coco2/QuickGame/src/app/scenes/game.lua",
+		"/Users/blackmiaool/Documents/coco2/QuickGame/src/app/mvp.lua",
+		"/Users/blackmiaool/Documents/coco2/QuickGame/src/app/good.lua",
 		"/Users/blackmiaool/Documents/blackmiaool.github.io/game/res.js",
 		"/Users/blackmiaool/Documents/blackmiaool.github.io/game/cover.js",
 		"/Users/blackmiaool/Documents/blackmiaool.github.io/game/start.js",
@@ -272,6 +277,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"move_dis",
 			"3",
 			"down_rate",
 			"Searching",
@@ -342,24 +348,202 @@
 	"groups":
 	[
 		{
-			"selected": 6,
+			"selected": 4,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "app/good.lua",
+					"file": "app/ob.lua",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2739,
+						"buffer_size": 5185,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								552,
-								552
+								4561,
+								4561
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
+							],
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2306.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/mvp.lua",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4308,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2284,
+								2284
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
+							],
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 958.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/miaolib.lua",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3877,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								52,
+								52
 							]
 						],
 						"settings":
@@ -431,24 +615,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "app/mvp.lua",
+					"buffer": 3,
+					"file": "app/scenes/game.lua",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4129,
+						"buffer_size": 9603,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4019,
-								4019
+								4028,
+								4028
 							]
 						],
 						"settings":
@@ -517,27 +701,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2222.0,
+						"translation.y": 209.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "app/scenes/game.lua",
+					"buffer": 4,
+					"file": "app/ob_frame.lua",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 9162,
+						"buffer_size": 7697,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								8552,
-								8552
+								4657,
+								4657
 							]
 						],
 						"settings":
@@ -603,144 +787,30 @@
 							],
 							"syntax": "Packages/Lua/Lua.tmLanguage",
 							"tab_size": 4,
-							"translate_tabs_to_spaces": true,
-							"wrap_width": 80
+							"translate_tabs_to_spaces": true
 						},
-						"translation.x": 0.0,
-						"translation.y": 5138.0,
+						"translation.x": 9.0,
+						"translation.y": 2325.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1061,
-						"regions":
-						{
-							"match":
-							{
-								"flags": 112,
-								"regions":
-								[
-									[
-										433,
-										442
-									],
-									[
-										721,
-										730
-									],
-									[
-										926,
-										935
-									]
-								],
-								"scope": ""
-							}
-						},
-						"selection":
-						[
-							[
-								218,
-								218
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content"
-							],
-							"detect_indentation": false,
-							"line_numbers": false,
-							"output_tag": 3,
-							"result_base_dir": "",
-							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
-							"result_line_regex": "^ +([0-9]+):",
-							"scroll_past_end": true,
-							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 209.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
+					"buffer": 5,
 					"file": "app/miaoconfig.lua",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 536,
+						"buffer_size": 595,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								247,
-								247
+								215,
+								215
 							]
 						],
 						"settings":
@@ -814,20 +884,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "app/score.lua",
-					"semi_transient": false,
+					"buffer": 6,
+					"file": "app/good.lua",
+					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 363,
+						"buffer_size": 2739,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								344,
-								344
+								0,
+								0
 							]
 						],
 						"settings":
@@ -891,191 +961,15 @@
 								"bh_unmatched_close",
 								"bh_unmatched_content"
 							],
-							"syntax": "Packages/Lua/Lua.tmLanguage"
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "app/ob_frame.lua",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4120,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3286,
-								3286
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content"
-							],
-							"syntax": "Packages/Lua/Lua.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2108.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "app/ob.lua",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 5185,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3091,
-								3091
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content"
-							],
-							"syntax": "Packages/Lua/Lua.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": -0.0,
-						"translation.y": 1556.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
+					"stack_index": 4,
 					"type": "text"
 				}
 			]

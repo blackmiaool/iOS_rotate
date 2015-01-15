@@ -5,7 +5,7 @@ sp:setScaleY(screen_y/sp:getContentSize().height)
 sp:setPosition(screen_x/2,screen_y/2)
 background:addChild(sp)
 local mask=cc.NVGDrawNode:create()
-mask:drawSolidRect(cc.p(0,0),cc.p(screen_x,screen_y),cc.c4f(0,0,0,0.70))
+mask:drawSolidRect(cc.p(0,0),cc.p(screen_x,screen_y),cc.c4f(41/255,170/255,212/255,1))
 background:addChild(mask)
 mask:setPosition(0,0)
 

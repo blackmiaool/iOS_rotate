@@ -1,5 +1,6 @@
 require "config"
 require "plist"
+require "miaoconfig"
 tens={1,10,100,1000,10000,100000,1000000,10000000}
 xishu=180/math.pi
 function table.isIn(table,element)
@@ -133,7 +134,7 @@ function table.copy(data)
     return retval
 end
 function table.cmp(data1,data2)
-    
+
     for i,j in pairs(data1) do
         if data2[i]~=j then
             return false
@@ -142,14 +143,14 @@ function table.cmp(data1,data2)
     return true
 end
 function r2xy(r,p,x0,y0)
-    
+
     local x,y;
     p=p/xishu
     if p<180 then
         x=math.cos(p)*r
         y=math.sin(p)*r
     else
-        
+
         x=-math.cos(p)*r
         y=math.sin(p)*r
     end
@@ -159,4 +160,19 @@ function r2xy(r,p,x0,y0)
     end
     return x,y    
 end
-
+function remover()
+    local node=cc.Node:create()
+    local ac=cc.CallFunc:create(
+        function()
+            local x,y=node:getParent():getPosition();
+            if y<-screen_x then
+                print("remove")
+                node:getParent():removeFromParent();
+            end
+        end
+        ,{0})
+    ac=cc.Sequence:create(cc.DelayTime:create(1),ac)
+    ac=cc.RepeatForever:create(ac)
+    node:runAction(ac)
+    return node
+end

@@ -3,8 +3,13 @@ main_scene=nil
 screen_width,screen_height=cc.Director:getInstance():getVisibleSize().width,cc.Director:getInstance():getVisibleSize().height
 screen_x=screen_width
 screen_y=screen_height
-screen_scale=screen_width/1136
+sx=screen_x
+sy=screen_y
+
+screen_scale=screen_width/640
 ss=screen_scale
+shadow_delta=10*ss
+shadow_color=cc.c4f(0,0,0,0.5)
 print(screen_scale)
 color_pre={
     cc.c4f(74/255,184/255,255/255,1),
