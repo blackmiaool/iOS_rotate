@@ -1,7 +1,8 @@
 require("miaolib")
 
-local core_r=screen_x/640*160 
-local shield_r=screen_x/640*160
+local core_r=screen_x/640*160
+local shield_r=screen_x/640*30
+local shield_line_width=screen_x/640*7
 local shield_w=200
 local shield_rw=180
 local move_time=0.15
@@ -27,25 +28,46 @@ local move_dis=screen_x/4
 local function shield_create()
     local shield_node=cc.Node:create()
     shield_node:setAnchorPoint(cc.p(0.5,0.5))
+    local shield_center=screen_x/640*15
+    --local shield=cc.Sprite:create("shield.png")
+    function shape(color)
+        local shield=cc.NVGDrawNode:create()
+        shield:drawCircle(cc.p(0,0),shield_r,color)
+        shield:setLineWidth(shield_line_width)
+        for i=1,3 do
+            local line=cc.NVGDrawNode:create()
+            line:drawLine(cc.p(r2xy(shield_center,i*120)),cc.p(r2xy(shield_r,i*120)),color)
+            line:setLineWidth(shield_line_width)
+            shield:addChild(line)
+        end
+        local circle=cc.NVGDrawNode:create()
+        circle:drawCircle(cc.p(0,0),shield_center,color)
+        circle:setLineWidth(shield_line_width)
+        shield:addChild(circle)
+        return shield
+    end
+    local shield=shape(cc.c4f(1,1,1,1))
+    local shadow=shape(shadow_color)
 
-    local shield=cc.Sprite:create("shield.png")
 
-    local shield_scale=screen_x/10/shield:getContentSize().width
-    local r=shield_scale*shield:getContentSize().width
-
+    --local shield_scale=screen_x/10/shield:getContentSize().width
+    --local r=shield_scale*shield:getContentSize().width
+    local r=shield_r
 
     shield_node.shield=shield
     shield.r=r
-    shield:setScale(shield_scale)
+    --shield:setScale(shield_scale)
 
-    shield_node:addChild(shield)
+    shield_node:addChild(shield,1)
+    shield_node:addChild(shadow)
+    shadow:setPosition(shadow_delta/2,-shadow_delta)
     shield:setPosition(0,0)
     shield:runAction(cc.RepeatForever:create(cc.RotateBy:create(1,shield_w)))
     function shield:out()
         shield:setPhysicsBody(cc.PhysicsBody:createCircle(r/2,cc.PhysicsMaterial(1000,1,10000)))
         shield:getPhysicsBody():setGravityEnable(false)
-        shield:getTexture():setAntiAliasTexParameters()
-        shield:getPhysicsBody():setContactTestBitmask(0x1)            
+        --shield:getTexture():setAntiAliasTexParameters()
+        shield:getPhysicsBody():setContactTestBitmask(0x1)
         -- shield:getPhysicsBody():setAngularVelocity(-shield_w/xishu)
         -- shield:stopAllActions()
         -- local out=cc.MoveBy:create(0.5,cc.p(0,shield_r))
@@ -138,4 +160,3 @@ mvp.shield=shield_node.shield
 -- test2:getPhysicsBody():setGravityEnable(false)
 -- test2:setPosition(0,300)
 return mvp
-

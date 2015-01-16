@@ -20,7 +20,7 @@ function GameScene:layer_create()
             return "left"
         else
             return "right"
-        end        
+        end
     end
     local function touchFunc(x,y,start)
         if not rear_enable then
@@ -36,7 +36,7 @@ function GameScene:layer_create()
             choose=choose_this
         end
         --        local mvp_x,mvp_y=self.mvp:getPosition()
-        --        self.mvp:setshieldAngle(        
+        --        self.mvp:setshieldAngle(
         --            getAngle(x-self.mvp:getPositionX(),
         --            y-self.mvp:getPositionY()),2*math.sqrt((x-mvp_x)*(x-mvp_x)+(y-mvp_y)*(y-mvp_y)))
     end
@@ -144,10 +144,18 @@ function GameScene:start()
         --local ob=bad_delta_create(color_pre[1],0)
         --local ob=down_circle_create(math.random(0,1),random_color())
         --local ob=down_circle_set_create(math.random(1,4),random_color())
-        local ob=down_circle_with_line_set_create(2)
-        ob:runAction(cc.MoveBy:create(6,cc.p(0,-screen_y*1.6)))
+        local ob=down_circle_with_line_set_create(2,screen_y*0.1,screen_y*1.6/6)
+        local ac=cc.MoveBy:create(6,cc.p(0,-screen_y*1.6))
+        ac=cc.Sequence:create(ac,cc.CallFunc:create(
+            function(para)
+                print(para)
+                print("rm")
+                para:removeFromParent()
+            end
+            ,{ob}))
+        ob:runAction(ac)
         scene.bg:addChild(ob)
-        ob:setPosition(screen_x/2,screen_y)
+        ob:setPosition(screen_x/2,screen_y*1.1)
 
     end
 
@@ -173,29 +181,72 @@ function GameScene:start()
                 ob=nodeB
             elseif nodeB==mvp.shield then
                 shield=nodeB
-                ob=nodeA   
+                ob=nodeA
             end
-            if ob.kind=="ob_frame" then                
+            if ob.kind=="ob_frame" then
                 local v=ob:getPhysicsBody():getVelocity()
-                print("contact")
+                --print("contact")
                 local shield_p=mvp.shield_node:convertToWorldSpace(cc.p(mvp.shield:getPosition()))
-                mvp.shield_node:removeFromParent()
-                rear_enable=false
+                local ob_p=cc.p(ob:getParent():convertToWorldSpace(cc.p(ob:getPosition())))
+                local contact_handle={
+                    circle_with_line=
+                    function()
+                        local dis_x=shield_p.x-ob_p.x
+                        print(shield_p.x,ob_p.x)
+                        if math.abs(dis_x)<ob.length/5*2 then
+                            print("middle")
+                            if ob.middle then
+                                return true
+                            else
+                                return false
+                            end
+                        elseif dis_x<=-ob.length/5*2 then
+                            print("left")
+                            if ob.left then
+                                return true
+                            else
+                                return false
+                            end
+                        elseif dis_x>=ob.length/5*2 then
+                            print("right")
+                            if ob.right then
+                                return true
+                            else
+                                return false
+                            end
+                        else
+                            print("error")
+                        end
 
-                ob:remove()
 
-                local miao=cc.ParticleSystemQuad:create("contact.plist")
-                miao:setPosition(shield_p)
-                scene:addChild(miao)
+                    end,
+
+                }
+                if contact_handle[ob.name]() then
+                    --ob break
+                    ob:remove()
+                else
+                    --mvp break
+                    mvp.shield_node:removeFromParent()
+                    rear_enable=false
+                    local miao=cc.ParticleSystemQuad:create("contact.plist")
+                    miao:setPosition(shield_p)
+                    scene:addChild(miao)
+                end
+
+
+
+
+
 
                 return nil
-            elseif ob.kind=="ob_good" then  
+            elseif ob.kind=="ob_good" then
                 ob:remove()
             end
             shield:getPhysicsBody():setVelocity(cc.p(0,0))
 
-        end              
-        return retval        
+        end
+        return retval
     end
 
     local contact=cc.EventListenerPhysicsContact:create()
@@ -219,21 +270,21 @@ function GameScene:start()
     right_body:setPhysicsBody(cc.PhysicsBody:createEdgeBox({width=100,height=screen_y*2},cc.PhysicsMaterial(100,1,100),3))
     right_body:setPosition(50+screen_x,screen_y/2)
     right_body:getPhysicsBody():setDynamic(false)
---    scene:addChild(left_body)
---    scene:addChild(right_body)
+    --    scene:addChild(left_body)
+    --    scene:addChild(right_body)
 
     scene:getPhysicsWorld():setGravity(cc.p(0,-screen_x*2))
 end
 
 
 function GameScene.create()
-    local bg=require("background")     
+    local bg=require("background")
     local scene = GameScene.new()
     main_scene=scene
     math.randomseed(os.time())
     scene:addChild(bg,-10)
     scene.bg=bg
-    --scene:getPhysicsWorld():setDebugDrawMask(cc.PhysicsWorld.DEBUGDRAW_ALL)  
+    --scene:getPhysicsWorld():setDebugDrawMask(cc.PhysicsWorld.DEBUGDRAW_ALL)
     local cover=require("cover")
     local score=require("score")
 
@@ -241,7 +292,7 @@ function GameScene.create()
     local setting=cc.ControlButton:create()
     local score_x,score_y=screen_x/2,screen_y*14/15
     score:setPosition(score_x,score_y)
-    
+
     scene:addChild(score,10)
 
     local function onTouch(eventType, x, y)
@@ -291,9 +342,9 @@ function GameScene.create()
     --print("l")
     end
     scheduler.scheduleUpdateGlobal(listener)
-    
-    
-    
+
+
+
     --    local laser=laser_create(90)
     --    laser:setPosition(100,100)
     --    scene:addChild(laser)
