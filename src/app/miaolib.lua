@@ -166,7 +166,7 @@ function remover()
         function()
             local x,y=node:getParent():getPosition();
             if y<-screen_x then
-                print("remove")
+            
                 node:getParent():removeFromParent();
             end
         end

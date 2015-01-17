@@ -2,7 +2,7 @@ require("miaolib")
 
 local core_r=screen_x/640*160
 local shield_r=screen_x/640*30
-local shield_line_width=screen_x/640*7
+local shield_line_width=screen_x/640*8
 local shield_w=200
 local shield_rw=180
 local move_time=0.15
@@ -41,7 +41,7 @@ local function shield_create()
             shield:addChild(line)
         end
         local circle=cc.NVGDrawNode:create()
-        circle:drawCircle(cc.p(0,0),shield_center,color)
+        circle:drawSolidCircle(cc.p(0,0),shield_center,color)
         circle:setLineWidth(shield_line_width)
         shield:addChild(circle)
         return shield

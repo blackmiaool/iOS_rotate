@@ -182,8 +182,8 @@ end
 function frag_rect_create(rect)
     function frag(xp,yp)
         local frag=frag_create()
-        x=rect.x+xp*frag_size
-        y=rect.y+yp*frag_size
+        local x=rect.x+xp*frag_size
+        local y=rect.y+yp*frag_size
 
         frag:setPosition(x,y)
     end
@@ -198,28 +198,28 @@ function frag_rect_create(rect)
         end
     end
 end
-function frag_circle_create(center,r)
+local function frag_circle_create(center,r)
     local num=2*math.pi*r/frag_size
     for i=1,num do
         local angle=360/num*i/xishu
         local frag=frag_create()
-        x=center.x+r*math.cos(angle)
-        y=center.y+r*math.sin(angle)
+        local x=center.x+r*math.cos(angle)
+        local y=center.y+r*math.sin(angle)
         frag:setPosition(x,y)
     end
 end
 
 function down_circle_with_line_set_create(dir,height,speed)
     local node=cc.Node:create()
-    local lenth=sx/4
+    local length=sx/4
     local order=dir-1
     local gap=200*ss
-    local single=down_circle_with_line_create(lenth,cc.c4f(1,1,1,1),80,height/speed)
+    local single=down_circle_with_line_create(length,cc.c4f(1,1,1,1),80,height/speed)
     single:setPosition(0,(1-order)*gap)
     local double={}
     for i=1,2 do
         local xishu=(i-1.5)*2
-        double[i]=down_circle_with_line_create(lenth,cc.c4f(1,1,1,1),80,height/speed+gap/speed)
+        double[i]=down_circle_with_line_create(length,cc.c4f(1,1,1,1),80,height/speed+gap/speed)
         double[i]:setPosition(sx/4*xishu,order*gap)
         node:addChild(double[i])
 
@@ -237,26 +237,61 @@ function down_circle_with_line_create(length,color,threshold,delay)
     node.length=length
     local r=20*ss
     local line_width=14*ss
-    node.left=math.random(1,100)>threshold
-    node.right=math.random(1,100)>threshold
-    node.middle=math.random(1,100)>threshold
+    node.left1=math.random(1,100)>threshold
+    node.right1=math.random(1,100)>threshold
+    node.middle1=math.random(1,100)>threshold
+    function node:handle(ob,shield)
+        --print(node.left1,node.middle1,node.right1)
+        local dis_x=shield.x-ob.x
+        --print(shield.x,ob.x)
+        if math.abs(dis_x)<self.length/5*1 then
+            --print("middle")
+            if node.middle1 then
+                return true
+            else
+                return false
+            end
+        elseif dis_x<=-self.length/5*1 then
+            --print("left")
+            if node.left1 then
+                return true
+            else
+                return false
+            end
+        elseif dis_x>=self.length/5*1 then
+            --print("right")
+            if self.right1 then
+                return true
+            else
+                return false
+            end
+        else
+            print("error")
+        end
+    end
+
+
+
+
+
+
     function node:remove()
 
-        org=self:getParent():convertToWorldSpace(cc.p(node:getPosition()))
+        local org=self:getParent():convertToWorldSpace(cc.p(node:getPosition()))
         self:removeFromParent()
-        print("remove")
+        --print("remove")
         frag_rect_create(cc.rect(org.x-length/2,org.y-line_width/2,length,line_width))
         frag_circle_create(cc.p(org.x-length/2,org.y),r)
         frag_circle_create(cc.p(org.x+length/2,org.y),r)
     end
 
-    function shape(color)
+    function node:shape(color)
         local scale_time=1
         local node1=cc.Node:create()
         local line=cc.NVGDrawNode:create()
         local shorten=line_width*1.3
         local empty_width=line_width/3
-        if node.middle then
+        if node.middle1 then
             local up=cc.NVGDrawNode:create()
             up:drawLine(cc.p(-length/2+shorten,line_width/2),cc.p(length/2-shorten,line_width/2),color)
             up:setLineWidth(empty_width)
@@ -282,14 +317,14 @@ function down_circle_with_line_create(length,color,threshold,delay)
         local circle={}
 
 
-        if node.left then
+        if node.left1 then
             circle[1]=cc.NVGDrawNode:create()
             circle[1]:drawCircle(cc.p(-1*length/2,0),r-empty_width/4,color);
             circle[1]:setLineWidth(empty_width);
-
-        elseif node.right then
+        end
+        if node.right1 then
             circle[2]=cc.NVGDrawNode:create()
-            circle[2]:drawCircle(cc.p(1*length/2,0),r-empty_width/4,color)
+            circle[2]:drawCircle(cc.p(length/2,0),r-empty_width/4,color)
             circle[2]:setLineWidth(empty_width)
         end
 
@@ -315,10 +350,10 @@ function down_circle_with_line_create(length,color,threshold,delay)
 
         return node1
     end
-    local shadow=shape(shadow_color)
+    local shadow=node:shape(shadow_color)
     shadow:setPosition(shadow_delta/2,-shadow_delta)
     node:addChild(shadow)
-    node:addChild(shape(color))
+    node:addChild(node:shape(color))
 
 
 

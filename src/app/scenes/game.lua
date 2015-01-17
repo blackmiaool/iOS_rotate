@@ -1,9 +1,25 @@
 require("miaolib")
-require("ob")
-require("laser")
+--require("ob")
+--require("laser")
 require("ob_frame")
 require("miaoconfig")
-require("good")
+--require("good")
+
+
+
+
+
+--bg=require("background2")
+--bg=dofile("../../../../../src/app/background2.lua")
+--cover=dofile("../../../../../src/app/cover.lua")
+--score=dofile("../../../../../src/app/score.lua")
+--mvp=dofile("../../../../../src/app/mvp.lua")
+
+
+init_done=false
+
+
+
 local GameScene = class("GameScene",function()
     return cc.Scene:createWithPhysics()
 end)
@@ -82,6 +98,8 @@ function GameScene:layer_create()
     return background
 end
 
+require("gameover.lua")
+
 function GameScene:start()
     local bg=self.bg
     local mvp=self.mvp
@@ -89,7 +107,7 @@ function GameScene:start()
 
     print("start")
     mvp.shield:out()
-    rear_enable=true
+    rear_enable=false
     math.randomseed(os.time())
 
 
@@ -97,37 +115,18 @@ function GameScene:start()
     ac_down=cc.RepeatForever:create(ac_down)
     -- scene.ob_layer:runAction(ac_down)
 
-    vz=cc.Director:getInstance():getVisibleSize()
+    local vz=cc.Director:getInstance():getVisibleSize()
 
 
     main_scene=scene
-    function rear_update()
-        if not rear_enable then
-            return ;
-        end
-        local rear=cc.Sprite:create("rear.png")
-        rear:setScale(0.4*screen_scale)
-        --print(mvp.shield:getPosition())
-        local shield_p=mvp.shield_node:convertToWorldSpace(cc.p(mvp.shield:getPosition()))
-        rear:setPosition(shield_p.x,shield_p.y-70*screen_scale)
-        local x_delta=40
-        local x=math.random(-x_delta*screen_scale,x_delta*screen_scale)
-        local rotate=math.random(0,360)
-        rear:setRotation(rotate)
-        local scale=math.random(50,100)
-        rear:setScale(rear:getScale()*scale/100)
-        local ac=cc.Spawn:create(cc.ScaleBy:create(2,0,0),cc.MoveBy:create(2,cc.p(x,-300*screen_scale)))
-        local ac=cc.Sequence:create(
-            ac,cc.CallFunc:create(function()rear:removeFromParent()end,{0}))
-        scene:addChild(rear)
-        rear:runAction(ac)
-    end
-    mvp.shield_node:getScheduler():scheduleScriptFunc(rear_update, 0.1, false)
-    local ts=cc.Sprite:create("ob_blue.png")
+
+    --local ts=cc.Sprite:create("ob_blue.png")
 
 
 
-
+--    if 1 then
+--    return
+--end
     scene:addChild(scene:layer_create())
 
 
@@ -144,26 +143,31 @@ function GameScene:start()
         --local ob=bad_delta_create(color_pre[1],0)
         --local ob=down_circle_create(math.random(0,1),random_color())
         --local ob=down_circle_set_create(math.random(1,4),random_color())
-        local ob=down_circle_with_line_set_create(2,screen_y*0.1,screen_y*1.6/6)
-        local ac=cc.MoveBy:create(6,cc.p(0,-screen_y*1.6))
+        local speed=5
+        local start_y=screen_y*1.6
+        local ob=down_circle_with_line_set_create(2,screen_y*0.1,start_y/speed)
+        local ac=cc.MoveBy:create(speed,cc.p(0,-start_y))
         ac=cc.Sequence:create(ac,cc.CallFunc:create(
             function(para)
-                print(para)
-                print("rm")
+                --print(para)
+                --print("rm")
                 para:removeFromParent()
             end
             ,{ob}))
         ob:runAction(ac)
+        ob.name="ob"
         scene.bg:addChild(ob)
         ob:setPosition(screen_x/2,screen_y*1.1)
 
     end
 
+    scene_update()
+    scene.ddd=scene:getScheduler():scheduleScriptFunc(scene_update, 1.6, false)
+ 
 
-    scene:getScheduler():scheduleScriptFunc(scene_update, 2.4, false)
-
-
-
+    rear_enable=true
+  
+    --print("ddddd"..scene.ddd)
     local function onContactBegin(contact,a,b)
         local retval;
         local nodeA=contact:getShapeA():getBody():getNode()
@@ -176,6 +180,8 @@ function GameScene:start()
         end
 
         if nodeA==mvp.shield or nodeB==mvp.shield then
+            
+            
             if nodeA==mvp.shield then
                 shield=nodeA
                 ob=nodeB
@@ -188,43 +194,11 @@ function GameScene:start()
                 --print("contact")
                 local shield_p=mvp.shield_node:convertToWorldSpace(cc.p(mvp.shield:getPosition()))
                 local ob_p=cc.p(ob:getParent():convertToWorldSpace(cc.p(ob:getPosition())))
-                local contact_handle={
-                    circle_with_line=
-                    function()
-                        local dis_x=shield_p.x-ob_p.x
-                        print(shield_p.x,ob_p.x)
-                        if math.abs(dis_x)<ob.length/5*2 then
-                            print("middle")
-                            if ob.middle then
-                                return true
-                            else
-                                return false
-                            end
-                        elseif dis_x<=-ob.length/5*2 then
-                            print("left")
-                            if ob.left then
-                                return true
-                            else
-                                return false
-                            end
-                        elseif dis_x>=ob.length/5*2 then
-                            print("right")
-                            if ob.right then
-                                return true
-                            else
-                                return false
-                            end
-                        else
-                            print("error")
-                        end
 
-
-                    end,
-
-                }
-                if contact_handle[ob.name]() then
-                    --ob break
+                --if contact_handle[ob.name]() then
+                if ob:handle(ob_p,shield_p) then
                     ob:remove()
+                    score:boom()
                 else
                     --mvp break
                     mvp.shield_node:removeFromParent()
@@ -232,13 +206,16 @@ function GameScene:start()
                     local miao=cc.ParticleSystemQuad:create("contact.plist")
                     miao:setPosition(shield_p)
                     scene:addChild(miao)
+                    local children=scene.bg:getChildren()
+                    for i,j in pairs(children) do
+                        print("33")
+                        if(j.name=="ob") then
+                        print("miao")
+                            j:stopAllActions()
+                        end
+                    end
+                    gameover(scene)
                 end
-
-
-
-
-
-
                 return nil
             elseif ob.kind=="ob_good" then
                 ob:remove()
@@ -277,52 +254,81 @@ function GameScene:start()
 end
 
 
+
 function GameScene.create()
-    local bg=require("background")
+    --local bg=require("background")
     local scene = GameScene.new()
+    --local scene=cc.Scene:createWithPhysics()
     main_scene=scene
     math.randomseed(os.time())
-    scene:addChild(bg,-10)
-    scene.bg=bg
-    --scene:getPhysicsWorld():setDebugDrawMask(cc.PhysicsWorld.DEBUGDRAW_ALL)
-    local cover=require("cover")
-    local score=require("score")
+    bg=dofile("../../../../../src/app/background2.lua")
+    cover=dofile("../../../../../src/app/cover.lua")
+    score=dofile("../../../../../src/app/score.lua")
+    mvp=dofile("../../../../../src/app/mvp.lua")
 
+        scene:addChild(score,20)
+        
+        scene:addChild(mvp,11)
+    scene:addChild(bg)
+     
+        
+   
+    scene.bg=bg 
+    --scene:getPhysicsWorld():setDebugDrawMask(cc.PhysicsWorld.DEBUGDRAW_ALL)
+    --local cover=require("cover")
+    --score=require("score")
+    scene.score=score
     --local setting=cc.Sprite:create("setting.png")
     local setting=cc.ControlButton:create()
-    local score_x,score_y=screen_x/2,screen_y*14/15
+    local score_x,score_y=sx/2,sy*14/15
     score:setPosition(score_x,score_y)
 
-    scene:addChild(score,10)
+    
 
     local function onTouch(eventType, x, y)
-
         if eventType =="began"  then
             return true
         elseif eventType == "moved" then
             return true
         else
-            print("miao")
             cover:remove()
             scene:start(bg)
 
             return true
         end
+
     end
 
-    cover:registerScriptTouchHandler(onTouch)
-    cover:setTouchEnabled(true)
-    scene:addChild(cover)
-
-    local mvp=require("mvp.lua")
-    scene:addChild(mvp,11)
     mvp:setPosition(screen_x/2,screen_y/4)
 
     scene.mvp=mvp
 
-    --mvp.shield_node:setRotation(-90)
 
+    function rear_update(force_start)
 
+        if not rear_enable then
+            return ;
+        end
+        score:setNum(score.num+1)
+        local rear=cc.Sprite:create("rear.png")
+        rear:setScale(0.4*screen_scale)
+        --print(mvp.shield:getPosition())
+        local shield_p=mvp.shield_node:convertToWorldSpace(cc.p(mvp.shield:getPosition()))
+        rear:setPosition(shield_p.x,shield_p.y-70*screen_scale)
+        local x_delta=40
+        local x=math.random(-x_delta*screen_scale,x_delta*screen_scale)
+        local rotate=math.random(0,360)
+        rear:setRotation(rotate)
+        local scale=math.random(50,100)
+        rear:setScale(rear:getScale()*scale/100)
+        local ac=cc.Spawn:create(cc.ScaleBy:create(2,0,0),cc.MoveBy:create(2,cc.p(x,-300*screen_scale)))
+        local ac=cc.Sequence:create(
+            ac,cc.CallFunc:create(function()rear:removeFromParent()end,{0}))
+        scene:addChild(rear)
+        rear:runAction(ac)
+    end
+    --rear_update(true)
+    main_scene.fff=scene:getScheduler():scheduleScriptFunc(rear_update, 0.1, false)
 
 
     --button1
@@ -337,54 +343,32 @@ function GameScene.create()
     open_btn:setPosition(screen_x*0.90,score_y)
     scene:addChild(open_btn,11)
 
-    local scheduler = require(cc.PACKAGE_NAME .. ".scheduler")
-    function listener()
-    --print("l")
+
+
+
+    if not init_done then
+        init_done=true
+        scene:addChild(cover)
+        cover:registerScriptTouchHandler(onTouch)
+        cover:setTouchEnabled(true)
+    else
+        --cover:remove()
+        scene:start(bg)
     end
-    scheduler.scheduleUpdateGlobal(listener)
 
 
+--    local scheduler = require(cc.PACKAGE_NAME .. ".scheduler")
+--    function listener()
+--    
+--    end
+--    scheduler.scheduleUpdateGlobal(listener)
+    
+    
 
-    --    local laser=laser_create(90)
-    --    laser:setPosition(100,100)
-    --    scene:addChild(laser)
-
-    -- local ob_layer=cc.Layer:create()
-    -- scene.ob_layer=ob_layer
-    -- scene:addChild(ob_layer)
-    -- local ob=bad_gap_set_create(color_pre[1],0)
-    -- --ob_layer:addChild(ob)
-    -- ob:runAction(cc.MoveBy:create(2,-screen_y*1.3))
-    -- scene:addChild(ob)
-    -- ob:setPosition(math.random(screen_x/6,screen_x/6*5),screen_y)
+      --gameover()
 
 
-    -- local left_edge=screen_x/20
-    -- local gap=screen_x*18/20/9
-
-    -- local ob=good(cc.p(10,10))
-    -- ob_layer:addChild(ob)
-    -- ob:setPosition(100,300)
-    -- local dis_pre={};
-
-    -- local map={
-    -- {3,6},
-    -- {1,5},
-    -- {4,9},
-    -- {3,6},
-    -- {2,5},
-    -- {5,9},
-    -- {3,7},
-    -- }
-
-    -- for i,j in pairs(map) do
-    --     local ob=bad_rect_create(cc.p((j[2]-j[1])*gap,30))
-    --     ob_layer:addChild(ob)
-    --     ob:setPosition(left_edge+j[1]*gap,150*i+300)
-    -- end
-    -- local ccc=down_circle_with_line_set_create(2)
-    -- scene:addChild(ccc)
-    -- ccc:setPosition(sx/2,400)
+   
     return scene
 end
 
