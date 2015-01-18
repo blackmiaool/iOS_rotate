@@ -1,5 +1,5 @@
 require("miaolib")
-
+function mvp_c()
 local core_r=screen_x/640*160
 local shield_r=screen_x/640*30
 local shield_line_width=screen_x/640*8
@@ -36,7 +36,7 @@ local function shield_create()
         shield:setLineWidth(shield_line_width)
         for i=1,3 do
             local line=cc.NVGDrawNode:create()
-            line:drawLine(cc.p(r2xy(shield_center,i*120)),cc.p(r2xy(shield_r,i*120)),color)
+        line:drawLine(cc.p(r2xy(shield_center,i*120)),cc.p(r2xy(shield_r,i*120)),color)
             line:setLineWidth(shield_line_width)
             shield:addChild(line)
         end
@@ -44,6 +44,8 @@ local function shield_create()
         circle:drawSolidCircle(cc.p(0,0),shield_center,color)
         circle:setLineWidth(shield_line_width)
         shield:addChild(circle)
+--            circle[i]:setScale(ss)
+--            ==local shield=cc.Sprite:create("ob_blue.png")
         return shield
     end
     local shield=shape(cc.c4f(1,1,1,1))
@@ -160,3 +162,4 @@ mvp.shield=shield_node.shield
 -- test2:getPhysicsBody():setGravityEnable(false)
 -- test2:setPosition(0,300)
 return mvp
+end

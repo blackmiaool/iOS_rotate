@@ -318,31 +318,67 @@ function down_circle_with_line_create(length,color,threshold,delay)
 
 
         if node.left1 then
-            circle[1]=cc.NVGDrawNode:create()
-            circle[1]:drawCircle(cc.p(-1*length/2,0),r-empty_width/4,color);
-            circle[1]:setLineWidth(empty_width);
+--            circle[1]=cc.NVGDrawNode:create()    
+--            circle[1]:drawCircle(cc.p(-1*length/2,0),r-empty_width/4,color);
+--            circle[1]:setLineWidth(empty_width);
+            if(color~=shadow_color) then
+                circle[1]=cc.Sprite:create("circle_frame.png")
+                
+            else
+                circle[1]=cc.Sprite:create("circle_frame_shadow.png")
+
+            end
+            
+            circle[1]:setPosition(cc.p(0,0))
+
         end
         if node.right1 then
-            circle[2]=cc.NVGDrawNode:create()
-            circle[2]:drawCircle(cc.p(length/2,0),r-empty_width/4,color)
-            circle[2]:setLineWidth(empty_width)
+            if(color~=shadow_color) then
+                circle[2]=cc.Sprite:create("circle_frame.png")
+
+            else
+                circle[2]=cc.Sprite:create("circle_frame_shadow.png")
+
+            end
+
+            circle[2]:setPosition(cc.p(0,0))
+--            circle[2]=cc.NVGDrawNode:create()
+--            circle[2]:drawCircle(cc.p(length/2,0),r-empty_width/4,color)
+--            circle[2]:setLineWidth(empty_width)
         end
 
         if not circle[1] then
-            circle[1]=cc.NVGDrawNode:create()
-            circle[1]:drawSolidCircle(cc.p(-1*length/2,0),r,color)
+            if(color~=shadow_color) then
+                circle[1]=cc.Sprite:create("circle.png")
+
+            else
+                circle[1]=cc.Sprite:create("circle_shadow.png")
+
+            end
+
+            circle[1]:setPosition(cc.p(0,0))
         end
 
         if not circle[2] then
-            circle[2]=cc.NVGDrawNode:create()
-            circle[2]:drawSolidCircle(cc.p(1*length/2,0),r,color)
+            if(color~=shadow_color) then
+                circle[2]=cc.Sprite:create("circle.png")
+
+            else
+                circle[2]=cc.Sprite:create("circle_shadow.png")
+
+            end
+
+            circle[2]:setPosition(cc.p(0,0))
         end
         for i=1,2 do
-            circle[i]:setScale(0)
-            local ac=cc.ScaleTo:create(scale_time,1,1)
+            local xishu=(i-1.5)*2
+            --circle[i]:setScale(0)
+            local ac=cc.MoveTo:create(scale_time,cc.p(xishu*length/2,0))
             ac=cc.EaseBackOut:create(ac)
             ac=cc.Sequence:create(cc.DelayTime:create(delay),ac)
+            circle[i]:setScale(ss)
             circle[i]:runAction(ac)
+            
         end
 
         node1:addChild(circle[1],2)

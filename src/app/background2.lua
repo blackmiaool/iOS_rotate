@@ -1,13 +1,15 @@
+function background2_c()
 local background=cc.Layer:create()
+local background=cc.LayerColor:create(cc.c4b(41,170,212,255))
 local sp=cc.Sprite:create("back1.png")
-sp:setScaleX(screen_x/sp:getContentSize().width)
-sp:setScaleY(screen_y/sp:getContentSize().height)
+--sp:setScaleX(screen_x/sp:getContentSize().width)
+--sp:setScaleY(screen_y/sp:getContentSize().height)
 sp:setPosition(screen_x/2,screen_y/2)
-background:addChild(sp)
-local mask=cc.NVGDrawNode:create()
-mask:drawSolidRect(cc.p(0,0),cc.p(screen_x,screen_y),cc.c4f(41/255,170/255,212/255,1))
-background:addChild(mask)
-mask:setPosition(0,0)
+--background:addChild(sp)
+--local mask=cc.NVGDrawNode:create()
+--mask:drawSolidRect(cc.p(0,0),cc.p(screen_x,screen_y),cc.c4f(41/255,170/255,212/255,1))
+--background:addChild(mask)
+--mask:setPosition(0,0)
 
 
 local life_time=15
@@ -35,3 +37,4 @@ local size=150
 background_test=100
 print("bgg")
 return background
+end

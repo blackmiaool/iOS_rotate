@@ -3,8 +3,10 @@ require("miaolib")
 --require("laser")
 require("ob_frame")
 require("miaoconfig")
---require("good")
-
+require("background2")
+require("cover")
+require("score")
+require("mvp")
 
 
 
@@ -124,9 +126,9 @@ function GameScene:start()
 
 
 
---    if 1 then
---    return
---end
+    --    if 1 then
+    --    return
+    --end
     scene:addChild(scene:layer_create())
 
 
@@ -163,10 +165,10 @@ function GameScene:start()
 
     scene_update()
     scene.ddd=scene:getScheduler():scheduleScriptFunc(scene_update, 1.6, false)
- 
+
 
     rear_enable=true
-  
+
     --print("ddddd"..scene.ddd)
     local function onContactBegin(contact,a,b)
         local retval;
@@ -180,8 +182,8 @@ function GameScene:start()
         end
 
         if nodeA==mvp.shield or nodeB==mvp.shield then
-            
-            
+
+
             if nodeA==mvp.shield then
                 shield=nodeA
                 ob=nodeB
@@ -210,7 +212,7 @@ function GameScene:start()
                     for i,j in pairs(children) do
                         print("33")
                         if(j.name=="ob") then
-                        print("miao")
+                            print("miao")
                             j:stopAllActions()
                         end
                     end
@@ -234,9 +236,9 @@ function GameScene:start()
     eventDispatcher:setEnabled(true)
 
     eventDispatcher:addEventListenerWithSceneGraphPriority(contact, scene)
-    local miao=cc.ParticleSystemQuad:create("bg.plist")
-    scene:addChild(miao)
-    miao:setPosition(screen_x/2,screen_y/2)
+local miao=cc.ParticleSystemQuad:create("bg.plist")
+--scene:addChild(miao)
+--miao:setPosition(screen_x/2,screen_y/2)
 
     local left_body=cc.Sprite:create()
 
@@ -261,18 +263,25 @@ function GameScene.create()
     --local scene=cc.Scene:createWithPhysics()
     main_scene=scene
     math.randomseed(os.time())
-    bg=dofile("../../../../../src/app/background2.lua")
-    cover=dofile("../../../../../src/app/cover.lua")
-    score=dofile("../../../../../src/app/score.lua")
-    mvp=dofile("../../../../../src/app/mvp.lua")
+    --    bg=dofile("../../../../../src/app/background2.lua")
+    --    cover=dofile("../../../../../src/app/cover.lua")
+    --    score=dofile("../../../../../src/app/score.lua")
+    --    mvp=dofile("../../../../../src/app/mvp.lua")
+    bg=background2_c()
+    cover=cover_c()
+    score=score_c()
+    mvp=mvp_c()
+    scene.bg=bg
+    scene.cover=cover
+    scene.score=score
+    scene.mvp=mvp
+    scene:addChild(score,20)
 
-        scene:addChild(score,20)
-        
-        scene:addChild(mvp,11)
+    scene:addChild(mvp,11)
     scene:addChild(bg)
-     
-        
-   
+
+
+
     scene.bg=bg 
     --scene:getPhysicsWorld():setDebugDrawMask(cc.PhysicsWorld.DEBUGDRAW_ALL)
     --local cover=require("cover")
@@ -283,7 +292,7 @@ function GameScene.create()
     local score_x,score_y=sx/2,sy*14/15
     score:setPosition(score_x,score_y)
 
-    
+
 
     local function onTouch(eventType, x, y)
         if eventType =="began"  then
@@ -308,7 +317,10 @@ function GameScene.create()
 
         if not rear_enable then
             return ;
+        else
+            return
         end
+
         score:setNum(score.num+1)
         local rear=cc.Sprite:create("rear.png")
         rear:setScale(0.4*screen_scale)
@@ -327,7 +339,7 @@ function GameScene.create()
         scene:addChild(rear)
         rear:runAction(ac)
     end
-    --rear_update(true)
+    rear_update(true)
     main_scene.fff=scene:getScheduler():scheduleScriptFunc(rear_update, 0.1, false)
 
 
@@ -357,18 +369,18 @@ function GameScene.create()
     end
 
 
---    local scheduler = require(cc.PACKAGE_NAME .. ".scheduler")
---    function listener()
---    
---    end
---    scheduler.scheduleUpdateGlobal(listener)
-    
-    
-
-      --gameover()
+    --    local scheduler = require(cc.PACKAGE_NAME .. ".scheduler")
+    --    function listener()
+    --    
+    --    end
+    --    scheduler.scheduleUpdateGlobal(listener)
 
 
-   
+
+    --gameover()
+
+
+
     return scene
 end
 

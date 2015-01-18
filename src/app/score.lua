@@ -1,3 +1,4 @@
+function score_c()
 local ttfConfig = {}
 ttfConfig.fontFilePath="fonts/Abel-Regular.ttf" --这里的路径要设置对，否则create出来就是nil
 ttfConfig.fontSize=screen_x/10       
@@ -22,3 +23,4 @@ function score:setNum(num)
 end
 
 return score
+end

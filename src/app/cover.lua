@@ -1,4 +1,6 @@
+
 require("miaolib")
+function cover_c()
 local cover=cc.Layer:create()
 local middle=cc.NVGDrawNode:create()
 local line_lenth=10
@@ -46,3 +48,4 @@ function cover:remove()
     
 end
 return cover
+end
