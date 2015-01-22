@@ -1,5 +1,5 @@
 function background2_c()
-local background=cc.Layer:create()
+
 local background=cc.LayerColor:create(cc.c4b(41,170,212,255))
 local sp=cc.Sprite:create("back1.png")
 --sp:setScaleX(screen_x/sp:getContentSize().width)

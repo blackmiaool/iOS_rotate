@@ -1,7 +1,7 @@
 require("miaolib")
 function mvp_c()
 local core_r=screen_x/640*160
-local shield_r=screen_x/640*30
+local shield_r=screen_x/640*80
 local shield_line_width=screen_x/640*8
 local shield_w=200
 local shield_rw=180
@@ -29,21 +29,33 @@ local function shield_create()
     local shield_node=cc.Node:create()
     shield_node:setAnchorPoint(cc.p(0.5,0.5))
     local shield_center=screen_x/640*15
+    local scale=0.1
     --local shield=cc.Sprite:create("shield.png")
     function shape(color)
-        local shield=cc.NVGDrawNode:create()
-        shield:drawCircle(cc.p(0,0),shield_r,color)
-        shield:setLineWidth(shield_line_width)
-        for i=1,3 do
-            local line=cc.NVGDrawNode:create()
-        line:drawLine(cc.p(r2xy(shield_center,i*120)),cc.p(r2xy(shield_r,i*120)),color)
-            line:setLineWidth(shield_line_width)
-            shield:addChild(line)
+        -- local shield=cc.NVGDrawNode:create()
+        -- shield:drawCircle(cc.p(0,0),shield_r,color)
+        -- shield:setLineWidth(shield_line_width)
+        -- for i=1,3 do
+        --     local line=cc.NVGDrawNode:create()
+        -- line:drawLine(cc.p(r2xy(shield_center,i*120)),cc.p(r2xy(shield_r,i*120)),color)
+        --     line:setLineWidth(shield_line_width)
+        --     shield:addChild(line)
+        -- end
+        -- local circle=cc.NVGDrawNode:create()
+        -- circle:drawSolidCircle(cc.p(0,0),shield_center,color)
+        -- circle:setLineWidth(shield_line_width)
+        -- shield:addChild(circle)
+        local shield;
+        if color==shadow_color then
+            shield=cc.Sprite:create("mvp_shadow.png")
+        else
+            shield=cc.Sprite:create("mvp.png")
         end
-        local circle=cc.NVGDrawNode:create()
-        circle:drawSolidCircle(cc.p(0,0),shield_center,color)
-        circle:setLineWidth(shield_line_width)
-        shield:addChild(circle)
+--　　ccTexParams texParams = { GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE };
+--　　imgMipMap->getTexture()->setTexParameters(&texParams);
+    
+        shield:setScale(shield_r/shield:getContentSize().width)
+        shield:getTexture():setAntiAliasTexParameters()
 --            circle[i]:setScale(ss)
 --            ==local shield=cc.Sprite:create("ob_blue.png")
         return shield
@@ -69,7 +81,7 @@ local function shield_create()
         shield:setPhysicsBody(cc.PhysicsBody:createCircle(r/2,cc.PhysicsMaterial(1000,1,10000)))
         shield:getPhysicsBody():setGravityEnable(false)
         --shield:getTexture():setAntiAliasTexParameters()
-        shield:getPhysicsBody():setContactTestBitmask(0x1)
+        shield:getPhysicsBody():setContactTestBitmask(0xf)
         -- shield:getPhysicsBody():setAngularVelocity(-shield_w/xishu)
         -- shield:stopAllActions()
         -- local out=cc.MoveBy:create(0.5,cc.p(0,shield_r))
@@ -88,7 +100,8 @@ local function shield_create()
         -- self:runAction(rotate_left)
         local goleft=cc.MoveTo:create(move_time,cc.p(-move_dis,0))
         goleft=cc.EaseBackOut:create(goleft)
-        print(move_dis)
+        --print(move_dis)
+
         shield_node:stopAllActions()
         shield_node:runAction(goleft)
     end

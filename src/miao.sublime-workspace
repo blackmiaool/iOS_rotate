@@ -4,6 +4,34 @@
 		"selected_items":
 		[
 			[
+				"shadow_",
+				"shadow_color"
+			],
+			[
+				"setP",
+				"shadow:setPosition"
+			],
+			[
+				"circle_sha",
+				"circle_shadow"
+			],
+			[
+				"cir",
+				"circle_shape"
+			],
+			[
+				"Move",
+				"MoveTo:create"
+			],
+			[
+				"shadow",
+				"shadow_color"
+			],
+			[
+				"shado",
+				"shadow_color"
+			],
+			[
 				"conta",
 				"contact_handle	local"
 			],
@@ -75,47 +103,7 @@
 			"file": "app/ob.lua",
 			"settings":
 			{
-				"buffer_size": 5185,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/mvp.lua",
-			"settings":
-			{
-				"buffer_size": 4308,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/miaolib.lua",
-			"settings":
-			{
-				"buffer_size": 3877,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/background.lua",
-			"settings":
-			{
-				"buffer_size": 1331,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/ob_frame.lua",
-			"settings":
-			{
-				"buffer_size": 13232,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/scenes/game.lua",
-			"settings":
-			{
-				"buffer_size": 11614,
+				"buffer_size": 5509,
 				"line_ending": "Unix"
 			}
 		},
@@ -126,14 +114,57 @@
 				"buffer_size": 626,
 				"line_ending": "Unix"
 			}
+		},
+		{
+			"file": "app/scenes/game.lua",
+			"settings":
+			{
+				"buffer_size": 11168,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/gameover.lua",
+			"settings":
+			{
+				"buffer_size": 2451,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "local ob_m=cc.PhysicsMaterial(100,0,100)\n--function bad(dest)\n--    local x,y=dest.x,dest.y\n--    print(\"x,y=\"..x..y)\n--    local good=cc.Node:create()\n--    local top=bad_line_create(0,dest.x,color)\n--    top:setPosition(x/2,y)\n--    good:addChild(top)\n--\n--    local bottom=bad_line_create(0,x,color)\n--    bottom:setPosition(x/2,0)\n--    good:addChild(bottom)\n--\n--    local left=bad_line_create(90,y,color)\n--    left:setPosition(0,y/2)\n--    good:addChild(left)\n--\n--    local right=bad_line_create(90,y,color)\n--    right:setPosition(x,y/2)\n--    good:addChild(right)\n--\n--    return good\n--end\n--function bad_line_create(angle,length,color)\n--    --local line=cc.NVGDrawNode:create()\n--    local line=cc.Sprite:create(\"bad.png\")\n--    line.kind=\"ob_frame\"\n--    local x1,y1=0,0\n--    local x2,y2=length*math.cos(angle/xishu),length*math.sin(angle/xishu)\n--\n--    line:setScale(0.2,length/line:getContentSize().height)\n--\n--    --line:drawLine(cc.p(x1,y1),cc.p(x2,y2),color)\n--\n--    line:setPhysicsBody(cc.PhysicsBody:createEdgeBox(cc.size(x2-x1,y2-y1),cc.PhysicsMaterial(100,0,100),1))\n--\n--    line:getPhysicsBody():setRotationOffset((90-angle))\n--    line:setRotation((90-angle))\n--    line:getPhysicsBody():setContactTestBitmask(0x1)\n--    local ob=line\n--    function line:remove()\n--        local v=100\n--        local density=3\n--        local org=line:getParent():convertToWorldSpace(cc.p(line:getPosition()))\n--        local x_origin,y_origin=org.x,org.y\n--        local parent=ob:getParent()\n--        for i=1,length/density do\n--            local frag=cc.Sprite:create(\"frag.png\")\n--            local scale=density/frag:getContentSize().width\n--            local x,y;\n--            x=x_origin+(length/density/2-i-1)*density*math.cos(angle/xishu)\n--            y=y_origin+(length/density/2-i-1)*density*math.sin(angle/xishu)\n--\n--            frag:setPosition(x,y)\n--            frag:setScale(scale)\n--            local ph1_deltax=math.random(-50,50)*screen_scale\n--            local ph1_deltay=math.random(-50,50)*screen_scale\n--            local ph1_time=math.random(2,4)/10\n--            local ph1_scale=math.random(2,4)/10\n--\n--            local ph1_ac_moveBy=cc.MoveBy:create(ph1_time,cc.p(ph1_deltax,ph1_deltay))\n--            local ph1_ac_scale=cc.ScaleBy:create(ph1_time,ph1_scale,ph1_scale)\n--            local moveBy=cc.Spawn:create(ph1_ac_moveBy,ph1_ac_scale)\n--            moveBy=cc.EaseSineOut:create(moveBy)\n--\n--            local move=cc.MoveTo:create(0.5,cc.p(main_scene.mvp:getPosition()))\n--            move=cc.EaseSineOut:create(move)\n--            local ac=cc.Sequence:create(\n--                moveBy,move,cc.CallFunc:create(function()frag:removeFromParent()end,{0}))\n--            frag:runAction(ac)\n--\n--            main_scene:addChild(frag)\n--\n--        end\n--        line:removeFromParent()\n--        print(\"line\")\n--    end\n--    return line\n--end\n--\n--\n--function bad_rect_create(dest)\n--    local rect=cc.NVGDrawNode:create()\n--    rect:drawRect(cc.rect(0,0,dest.x,dest.y),cc.c4f(1,1,1,1))\n--    rect:setLineWidth(5*screen_scale)\n--    rect.kind=\"ob_frame\"\n--    rect:setPhysicsBody(cc.PhysicsBody:createEdgeBox(\n--        cc.size(dest.x,dest.y),cc.PhysicsMaterial(100,0,100),1,cc.p(dest.x/2,dest.y/2)))\n--    rect:getPhysicsBody():setContactTestBitmask(0x1)\n--    rect:setFillColor(cc.c4f(1,1,1,0))\n--    return rect\n--end\n--\n--\n----dir 0:left 1:middle 2:center\n--function bad_gap_set_create(color,dir)\n--    local node=cc.Node:create()\n--    local line_gap=100*ss\n--    local line_delta=60*ss\n--    for i=1,3 do\n--        local gap=bad_gap_create(color)\n--        gap:setPosition((dir-1)*line_delta*(i-2),line_gap*(i-2))\n--        node:addChild(gap)\n--    end\n--    return node;\n--end\n--\n--function bad_gap_create(color_set)\n--    local color=color_set\n--    local r=30*screen_scale\n--    local line=cc.Node:create()\n--    local gap=300*screen_scale\n--    color=random_color()\n--    local line_left=line_circle_create(90,r,color)\n--    color=random_color()\n--    local line_right=line_circle_create(0,r,color)\n--    line_left:setPosition(-(r+gap/2),0)\n--    line_right:setPosition((r+gap/2),0)\n--    line:addChild(line_left)\n--    line:addChild(line_right)\n--    return line;\n--end\n--\n--\n--function bad_delta_create(color_set,dir)\n--    local color=color_set\n--    local r=30*screen_scale\n--    local line=cc.Node:create()\n--    local gap=300*screen_scale\n--    local delta=0*screen_scale\n--    color=random_color()\n--    local line_left=down_line_circle_create(90,r,color)\n--    color=random_color()\n--    local line_right=down_line_circle_create(0,r,color)\n--    line_left:setPosition(delta,(gap*(dir-0.5)*2))\n--    line_right:setPosition(-delta,0)\n--    line:addChild(line_left)\n--    line:addChild(line_right)\n--    return line;\n--end\n\nfunction circle_body(center,r)\n    local body= cc.PhysicsBody:createCircle(r,ob_m,center):getFirstShape()\n    return body\nend\n\n\n--[[--\ncreate ob circle\n@param dir little: 1 up 2 down\n]]\n\n\n--[[--\ncreate ob\n@param empty 0:empty 1 2 3\n]]\nlocal frag_size=20*ss\n\nfunction frag_create()\n    local frag=cc.Sprite:create(\"frag.png\")\n    local scale=frag_size/frag:getContentSize().width\n    local x,y;\n    frag:setScale(scale)\n\n    local ph1_deltax=math.random(-50,50)*screen_scale\n    local ph1_deltay=math.random(-50,50)*screen_scale\n    local ph1_time=math.random(2,4)/10\n    local ph1_scale=math.random(2,4)/10\n\n    local ph1_ac_moveBy=cc.MoveBy:create(ph1_time,cc.p(ph1_deltax,ph1_deltay))\n    local ph1_ac_scale=cc.ScaleBy:create(ph1_time,ph1_scale,ph1_scale)\n    local moveBy=cc.Spawn:create(ph1_ac_moveBy,ph1_ac_scale)\n    moveBy=cc.EaseSineOut:create(moveBy)\n\n    local ac=cc.Sequence:create(\n        moveBy,cc.CallFunc:create(function()frag:removeFromParent()end,{0}))\n    frag:runAction(ac)\n    main_scene:addChild(frag)\n    return frag\nend\nfunction frag_rect_create(rect)\n    function frag(xp,yp)\n        local frag=frag_create()\n        local x=rect.x+xp*frag_size\n        local y=rect.y+yp*frag_size\n\n        frag:setPosition(x,y)\n    end\n    for i=1,rect.width/frag_size do\n        for j in pairs({1,rect.height/frag_size}) do\n            frag(i,j)\n        end\n    end\n    for i in pairs({1,rect.width/frag_size}) do\n        for j =1,rect.height/frag_size do\n            frag(i,j)\n        end\n    end\nend\nlocal function frag_circle_create(center,r)\n    local num=2*math.pi*r/frag_size\n    for i=1,num do\n        local angle=360/num*i/xishu\n        local frag=frag_create()\n        local x=center.x+r*math.cos(angle)\n        local y=center.y+r*math.sin(angle)\n        frag:setPosition(x,y)\n    end\nend\n\nfunction down_circle_with_line_set_create(dir,height,speed)\n    local node=cc.Node:create()\n    local length=sx/4\n    local order=dir-1\n    local gap=200*ss\n    local single=down_circle_with_line_create(length,80,height/speed)\n    single:setPosition(0,(1-order)*gap)\n    local double={}\n    for i=1,2 do\n        local xishu=(i-1.5)*2\n        double[i]=down_circle_with_line_create(length,80,height/speed+gap/speed,speed)\n        double[i]:setPosition(sx/4*xishu,order*gap)\n        node:addChild(double[i])\n\n    end\n    node:addChild(single)\n    --   node:addChild(remover())\n    return node\nend\n--dir left or right\nfunction four_line_set_create(dir,height,speed)\n    local node=cc.Node:create()\n    local line={}\n    local circle_width;\n    function circle_shape(color)\n        local circle;\n        if color==shadow_color then\n            circle=cc.Sprite:create(\"circle_big_shadow.png\")\n        else\n            circle=cc.Sprite:create(\"circle_big.png\")\n        end\n        circle_width=circle:getContentSize().width;\n        return circle\n    end\n\n    local circle=circle_shape(cc.c4f(1,1,1,1))\n    circle:setScale(ss)\n    local circle_shadow=circle_shape(shadow_color)\n    circle_shadow:setScale(ss)\n    \n\n    \n    node:addChild(circle_shadow,-1)\n    node:addChild(circle)\n    circle:setPositionZ(1)\n    local rotate_speed=90\n    local threshold=50\n    for i=1,4 do\n        node[i]=math.random(1,100)>threshold\n    end\n\n    local width\n    local height\n    function node:line_create(color,i)\n\n        local node1=cc.Node:create()\n        node1:setAnchorPoint(0.5,0.5)\n        function node1:handle(ob,shield)\n            print(\"handle\")\n            return true\n        end\n        function node1:remove()\n            print(\"remove\")\n            return true\n        end\n\n        local line;\n        if node[i] then\n            if color==shadow_color then\n                line=cc.Sprite:create(\"line_of_circle_frame_shadow.png\")\n\n            else\n                line=cc.Sprite:create(\"line_of_circle_frame.png\")\n                line:setPositionZ(1)\n            end\n        else\n            if color==shadow_color then\n                line=cc.Sprite:create(\"line_of_circle_shadow.png\")\n\n            else\n                line=cc.Sprite:create(\"line_of_circle.png\")\n                line:setPositionZ(1)\n            end\n        end\n        local bias=circle_width*ss/3\n        \n        width=line:getContentSize().width\n        width=width*ss\n        height=line:getContentSize().height\n        height=height*ss\nline:setPosition(bias+width/2,0)\nnode1:setRotation(i*90)\n      \n        line:setScale(ss)\n                local ac=cc.RotateBy:create(1,rotate_speed)\n        ac=cc.RepeatForever:create(ac)\n        node1:runAction(ac)\n        node1:addChild(line)\n          if color~=shadow_color then\n           \n\n        end\n        \n\n        \n        return node1\n    end\n    for i=1,4 do\n        local line=node:line_create(cc.c4f(1,1,1,1),i)\n        local shadow=node:line_create(shadow_color,i)\n        --shadow:setPosition(shadow_delta/2,-shadow_delta)\n        local x;\n        if dir==\"left\" then\n            x=-sx/2\n            line:setPosition(x,0)  \n\n        else\n            x=sx/2\n            line:setPosition(x,0)            \n        end\n        circle:setPosition(x,0) \n        shadow:setPosition(x+shadow_delta/2,-shadow_delta)\n        circle_shadow:setPosition(x+shadow_delta/2,-shadow_delta)\n        node:addChild(shadow)\n        node:addChild(line)\n\n    end\n    node:setPhysicsBody(cc.PhysicsBody:createBox(cc.size(width*3,height*3),ob_m))\n    node:getPhysicsBody():setGravityEnable(false)\n    node:getPhysicsBody():setContactTestBitmask(0x1)\n    return node;\nend\nfunction three_line_set_create(dir,height,speed)\n    local node=cc.Node:create()\n    local length=sx/4\n    local gap=sx/2*ss\n    local line={}\n    local r=20*ss\n    function three_line_create(length,threshold,delay,dir,speed)\n        local node=cc.Node:create()\n        node:setAnchorPoint(0.5,0.5)\n        node.kind=\"ob_frame\"\n        node.name=\"three_line\"\n        node.length=length\n        print(speed)\n        local move_time=1*100/speed\n        local r=20*ss\n        local line_width=14*ss\n        node.ball=math.random(1,100)>threshold\n        function node:handle(ob,shield)\n            print(ob.x,shield.x)\n            local delta=ob.x-shield.x\n            if delta<-sx/3 then\n                if node.ball and dir==\"left\" then\n                    return true        \n                end\n            elseif delta>sx/3 then\n                if node.ball and dir==\"right\" then\n                    return true        \n                end\n\n            end\n            return false\n        end\n        function node:remove()\n            local org=self:getParent():convertToWorldSpace(cc.p(node:getPosition()))\n            self:removeFromParent()\n            --print(\"remove\")\n            if dir==\"left\" then\n                frag_rect_create(cc.rect(org.x,org.y,sx/2,r*2))\n            else\n                frag_rect_create(cc.rect(org.x-sx/2,org.y,sx/2,r*2))\n            end\n            return true\n        end\n        function node:shape(color)\n            local scale_time=1\n            local node1=cc.Node:create()\n            local line;\n\n            if node.ball then\n                if color==shadow_color then\n                    line=cc.Sprite:create(\"line_circle_frame_shadow.png\")\n                else\n                    line=cc.Sprite:create(\"line_circle_frame.png\")\n                end\n            else\n                if color==shadow_color then\n                    line=cc.Sprite:create(\"line_circle_shadow.png\")\n                else\n                    line=cc.Sprite:create(\"line_circle.png\")\n                end\n            end\n\n            if dir==\"left\" then\n                line:setPosition(-sx/2/ss,0)\n                local ac=cc.MoveTo:create(move_time,cc.p(0,0))\n                ac=cc.Sequence:create(cc.DelayTime:create(delay),ac)\n                line:runAction(ac)\n            else\n                line:setPosition(-sx/2/ss,0)\n                local ac=cc.MoveTo:create(move_time,cc.p(0,0))\n                ac=cc.Sequence:create(cc.DelayTime:create(delay),ac)\n                line:runAction(ac)\n            end\n\n            node1:addChild(line)\n            node1:setScale(ss)\n            return node1\n        end   \n        local shadow=node:shape(shadow_color)\n        if dir==\"left\" then\n            shadow:setPosition(shadow_delta/2,-shadow_delta)\n        else\n            shadow:setPosition(-shadow_delta/2,-shadow_delta)\n        end\n\n        node:addChild(shadow)\n        node:addChild(node:shape(cc.c4f(1,1,1,1)),1)\n        --print(length*6,r)\n        node:setPhysicsBody(cc.PhysicsBody:createBox(cc.size(sx+2*r,r*2),ob_m))\n\n\n\n        node:getPhysicsBody():setContactTestBitmask(0x1)\n        node:getPhysicsBody():setGravityEnable(false)\n        return node\n    end\n    for i=1,3 do\n        line[i]=three_line_create(length,50,(i-1)*gap/speed+height/speed,dir,speed)\n        local length=cc.Sprite:create(\"line_circle.png\"):getContentSize().width*ss\n        if dir==\"left\" then\n            line[i]:setPosition(-sx/2,(i-1)*gap)\n        else\n\n            line[i]:setScale(-1,1)\n            line[i]:setPosition(sx*1/2,(i-1)*gap)\n        end\n        --line[i]:setPosition(r-length/2,(i-1)*gap)\n\n        --print(sx*3/4+r-length/2)\n        node:addChild(line[i])\n    end\n    return node\n\nend\n\n\n\n\n\n\nfunction down_circle_with_line_create(length,threshold,delay,speed)\n    local node=cc.Node:create()\n    node:setAnchorPoint(0.5,0.5)\n    node.kind=\"ob_frame\"\n    node.name=\"circle_with_line\"\n    node.length=length\n    local r=20*ss\n    local color=cc.c4f(1,1,1,1)\n    local line_width=14*ss\n    node.left1=math.random(1,100)>threshold\n    node.right1=math.random(1,100)>threshold\n    node.middle1=math.random(1,100)>threshold\n    function node:handle(ob,shield)\n        --print(node.left1,node.middle1,node.right1)\n        local dis_x=shield.x-ob.x\n        --print(shield.x,ob.x)\n        if math.abs(dis_x)<self.length/5*1 then\n            --print(\"middle\")\n            if node.middle1 then\n                return true\n            else\n                return false\n            end\n        elseif dis_x<=-self.length/5*1 then\n            --print(\"left\")\n            if node.left1 then\n                return true\n            else\n                return false\n            end\n        elseif dis_x>=self.length/5*1 then\n            --print(\"right\")\n            if self.right1 then\n                return true\n            else\n                return false\n            end\n        else\n            print(\"error\")\n        end\n    end\n\n\n\n\n\n\n    function node:remove()\n\n        local org=self:getParent():convertToWorldSpace(cc.p(node:getPosition()))\n        self:removeFromParent()\n        --print(\"remove\")\n        frag_rect_create(cc.rect(org.x-length/2,org.y-line_width/2,length,line_width))\n        frag_circle_create(cc.p(org.x-length/2,org.y),r)\n        frag_circle_create(cc.p(org.x+length/2,org.y),r)\n    end\n\n    function node:shape(color)\n        local scale_time=1\n        local node1=cc.Node:create()\n        local line=cc.NVGDrawNode:create()\n        local shorten=line_width*1.3\n        local empty_width=line_width/3\n        if node.middle1 then\n            local up=cc.NVGDrawNode:create()\n            up:drawLine(cc.p(-length/2+shorten,line_width/2),cc.p(length/2-shorten,line_width/2),color)\n            up:setLineWidth(empty_width)\n\n            local down=cc.NVGDrawNode:create()\n            down:drawLine(cc.p(-length/2+shorten,-line_width/2),cc.p(length/2-shorten,-line_width/2),color)\n            down:setLineWidth(empty_width)\n            line:addChild(up)\n            line:addChild(down)\n        else\n            line:drawLine(cc.p(-length/2+shorten,0),cc.p(length/2-shorten,0),color)\n            line:setLineWidth(line_width)\n        end\n        line:setScale(0,1)\n        local ac=cc.ScaleTo:create(scale_time,1,1)\n        ac=cc.EaseSineOut:create(ac)\n        ac=cc.Sequence:create(cc.DelayTime:create(delay),ac)\n        line:runAction(ac)\n\n\n        local mask_node=cc.Node:create()\n        node1:addChild(line)\n        local circle={}\n\n\n        if node.left1 then\n            --            circle[1]=cc.NVGDrawNode:create()    \n            --            circle[1]:drawCircle(cc.p(-1*length/2,0),r-empty_width/4,color);\n            --            circle[1]:setLineWidth(empty_width);\n            if(color~=shadow_color) then\n                circle[1]=cc.Sprite:create(\"circle_frame.png\")\n\n            else\n                circle[1]=cc.Sprite:create(\"circle_frame_shadow.png\")\n\n            end\n\n            circle[1]:setPosition(cc.p(0,0))\n\n        end\n        if node.right1 then\n            if(color~=shadow_color) then\n                circle[2]=cc.Sprite:create(\"circle_frame.png\")\n\n            else\n                circle[2]=cc.Sprite:create(\"circle_frame_shadow.png\")\n\n            end\n\n            circle[2]:setPosition(cc.p(0,0))\n            --            circle[2]=cc.NVGDrawNode:create()\n            --            circle[2]:drawCircle(cc.p(length/2,0),r-empty_width/4,color)\n            --            circle[2]:setLineWidth(empty_width)\n        end\n\n        if not circle[1] then\n            if(color~=shadow_color) then\n                circle[1]=cc.Sprite:create(\"circle.png\")\n\n            else\n                circle[1]=cc.Sprite:create(\"circle_shadow.png\")\n\n            end\n\n            circle[1]:setPosition(cc.p(0,0))\n        end\n\n        if not circle[2] then\n            if(color~=shadow_color) then\n                circle[2]=cc.Sprite:create(\"circle.png\")\n\n            else\n                circle[2]=cc.Sprite:create(\"circle_shadow.png\")\n\n            end\n\n            circle[2]:setPosition(cc.p(0,0))\n        end\n        for i=1,2 do\n            local xishu=(i-1.5)*2\n            --circle[i]:setScale(0)\n            local ac=cc.MoveTo:create(scale_time,cc.p(xishu*length/2,0))\n            ac=cc.EaseBackOut:create(ac)\n            ac=cc.Sequence:create(cc.DelayTime:create(delay),ac)\n            circle[i]:setScale(ss)\n            circle[i]:runAction(ac)\n\n        end\n\n        node1:addChild(circle[1],2)\n        node1:addChild(circle[2],2)\n\n        return node1\n    end\n    local shadow=node:shape(shadow_color)\n    shadow:setPosition(shadow_delta/2,-shadow_delta)\n    node:addChild(shadow)\n    node:addChild(node:shape(color))\n\n\n\n    node:setPhysicsBody(cc.PhysicsBody:createBox(cc.size(length-2*r,line_width),ob_m))\n\n    node:getPhysicsBody():addShape(circle_body(cc.p(-length/2,0),r+line_width/2))\n    node:getPhysicsBody():addShape(circle_body(cc.p(length/2,0),r+line_width/2))\n    node:getPhysicsBody():setContactTestBitmask(0x1)\n    node:getPhysicsBody():setGravityEnable(false)\n\n    return node\nend\n\n--[[--\ncreate ob circle\n@param dir little: 1:left down 2:right down 3:left up 4:right up\n]]\nfunction down_circle_set_create(dir)\n    local node=cc.Node:create()\n    local color=random_color()\n    local little=down_circle_create(0,color)\n    local large=down_circle_create(1,color)\n    local little_x;\n    local little_y;\n    local large_x;\n    local large_y;\n    local gap=sx*3/7\n\n    if dir%2>0 then\n        little_x=-sx/4\n        large_x=sx/8\n    else\n        little_x=sx/4\n        large_x=-sx/8\n    end\n\n    if dir < 3 then\n        little_y=0\n        large_y=gap\n    else\n        little_y=gap\n        large_y=0\n    end\n    little:setPosition(little_x,little_y)\n    large:setPosition(large_x,large_y)\n\n\n    node:addChild(little)\n    node:addChild(large)\n    node:addChild(remover())\n    return node\nend\n--[[--\ncreate ob circle\n@param size int 0:little 1:middle 2:large\n@param color cc.c4f\n]]\nfunction down_circle_create(size,color)\n    local line_width=10\n    local circle=cc.NVGDrawNode:create()\n    local shadow=cc.NVGDrawNode:create()\n    local r=(size*1+1)*ss*50\n    circle:setAnchorPoint(0.5,0.5)\n    circle.kind=\"ob_frame\"\n    circle:drawCircle(cc.p(0,0),r,color)\n    circle:setLineWidth(line_width)\n    --shadow:drawSolidCircle(cc.p(0,0),r,cc.c4f(0,0,0,0.5))\n    shadow:drawCircle(cc.p(0,0),r,cc.c4f(0,0,0,0.5))\n    shadow:setLineWidth(line_width)\n\n    shadow:setPosition(shadow_delta/2,-shadow_delta)\n    circle:setPhysicsBody(cc.PhysicsBody:createCircle(r+line_width/2,ob_m,cc.p(0,0)))\n    circle:getPhysicsBody():setContactTestBitmask(0x1)\n    circle:getPhysicsBody():setGravityEnable(false)\n    circle:addChild(shadow,-1)\n    return circle\nend\n\nfunction down_line_circle_create(angle,r,color)\n    local line_circle=cc.Node:create()\n    line_circle:setAnchorPoint(cc.p(0.5,0.5))\n    line_circle.kind=\"ob_frame\"\n\n    local circle=cc.NVGDrawNode:create()\n    circle:drawSolidCircle(cc.p(0,0),r,color)\n\n    local line=cc.NVGDrawNode:create()\n    if angle==0 then\n        line:drawRect(cc.p(0,-r),cc.p(screen_x,r),color)\n\n        line_circle:setPhysicsBody(cc.PhysicsBody:createCircle(r,ob_m,cc.p(0,0)))\n        local rect_body=cc.PhysicsBody:createBox(cc.size(screen_x,2*r),ob_m,cc.p(screen_x/2,0)):getFirstShape()\n        line_circle:getPhysicsBody():addShape(rect_body)\n    else\n        line:drawRect(cc.p(0,-r),cc.p(-screen_x,r),color)\n        line_circle:setPhysicsBody(cc.PhysicsBody:createCircle(r,ob_m,cc.p(0,0)))\n        local rect_body=cc.PhysicsBody:createBox(cc.size(screen_x,2*r),ob_m,cc.p(-screen_x/2,0)):getFirstShape()\n        line_circle:getPhysicsBody():addShape(rect_body)\n    end\n    line_circle:getPhysicsBody():setGravityEnable(false)\n    line:setFill(true)\n    line:setFillColor(color)\n\n    line_circle:addChild(circle)\n    line_circle:addChild(line)\n\n    line_circle:getPhysicsBody():setContactTestBitmask(0x1)\n    --line_circle:setRotation(angle)\n    return line_circle\nend\n",
+			"file": "app/ob_frame.lua",
+			"file_size": 22241,
+			"file_write_time": 130662275410000000,
+			"settings":
+			{
+				"buffer_size": 22242,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/score.lua",
+			"settings":
+			{
+				"buffer_size": 724,
+				"line_ending": "Unix"
+			}
 		}
 	],
 	"build_system": "Packages/User/lua.sublime-build",
 	"command_palette":
 	{
-		"height": 392.0,
+		"height": 127.0,
 		"selected_items":
 		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"INSTALL",
+				"Package Control: Install Package"
+			],
 			[
 				"ind",
 				"Indentation: Reindent Lines"
@@ -141,10 +172,6 @@
 			[
 				"IND",
 				"Indentation: Reindent Lines"
-			],
-			[
-				"install",
-				"Package Control: Install Package"
 			],
 			[
 				"in",
@@ -210,16 +237,20 @@
 	],
 	"file_history":
 	[
-		"/Users/blackmiaool/Documents/coco2/QuickGame/src/app/ob_frame.lua",
-		"/Users/blackmiaool/Documents/coco2/QuickGame/src/app/score.lua",
-		"/Users/blackmiaool/Documents/coco2/QuickGame/src/app/miaoconfig.lua",
-		"/Users/blackmiaool/Documents/coco2/QuickGame/src/app/scenes/game.lua",
-		"/Users/blackmiaool/Documents/coco2/QuickGame/src/app/mvp.lua",
-		"/Users/blackmiaool/Documents/coco2/QuickGame/src/app/good.lua",
-		"/Users/blackmiaool/Documents/blackmiaool.github.io/game/res.js",
-		"/Users/blackmiaool/Documents/blackmiaool.github.io/game/cover.js",
-		"/Users/blackmiaool/Documents/blackmiaool.github.io/game/start.js",
 		"/Users/blackmiaool/Documents/blackmiaool.github.io/game/屌丝.txt",
+		"/Users/blackmiaool/Documents/blackmiaool.github.io/game/cover.js",
+		"/Users/blackmiaool/Documents/blackmiaool.github.io/game/res.js",
+		"/Users/blackmiaool/Documents/blackmiaool.github.io/game/start.js",
+		"/Users/blackmiaool/Documents/coco2/QuickGame/src/app/background.lua",
+		"/Users/blackmiaool/Documents/coco2/QuickGame/src/app/score.lua",
+		"/Users/blackmiaool/Documents/coco2/QuickGame/src/app/mvp.lua",
+		"/Users/blackmiaool/Documents/coco2/QuickGame/src/app/cover.lua",
+		"/Users/blackmiaool/Documents/coco2/QuickGame/src/app/miaolib.lua",
+		"/Users/blackmiaool/Documents/coco2/QuickGame/src/app/scenes/game.lua",
+		"/Users/blackmiaool/Documents/coco2/QuickGame/src/app/scenes/MainScene.lua",
+		"/Users/blackmiaool/Documents/coco2/QuickGame/src/app/ob_frame.lua",
+		"/Users/blackmiaool/Documents/coco2/QuickGame/src/app/miaoconfig.lua",
+		"/Users/blackmiaool/Documents/coco2/QuickGame/src/app/good.lua",
 		"/Users/blackmiaool/Documents/blackmiaool.github.io/game/nature_test.js",
 		"/Users/blackmiaool/Documents/blackmiaool.github.io/game/index.html",
 		"/Users/blackmiaool/Documents/blackmiaool.github.io/game/main.js",
@@ -277,6 +308,7 @@
 		"height": 93.0,
 		"where_history":
 		[
+			"/Users/blackmiaool/Documents/HelloWorldlua/res,/Users/blackmiaool/Documents/blackmiaool.github.io/game,<open files>,/Users/blackmiaool/Documents/coco2/QuickGame/src/app,/Users/blackmiaool/Documents/coco2/QuickGame/src/app",
 			"/Users/blackmiaool/Documents/HelloWorldlua/res,/Users/blackmiaool/Documents/blackmiaool.github.io/game,<open files>,/Users/blackmiaool/Documents/coco2/QuickGame/src/app",
 			"/Users/blackmiaool/Documents/HelloWorldlua/res,/Users/blackmiaool/Documents/blackmiaool.github.io/game,<open files>",
 			"/Users/blackmiaool/Documents/HelloWorldlua/res,/Users/blackmiaool/Documents/blackmiaool.github.io/game",
@@ -289,6 +321,23 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"ob_m",
+			"gravity",
+			"random",
+			"setScale",
+			"se't",
+			"setS",
+			")\n",
+			"flip",
+			"three_line_set_create",
+			"runAction",
+			"frag_size",
+			"addChild",
+			"down_circle_with_line_create",
+			"rear_enable",
+			"num",
+			"rear_enable",
+			"DrawNode",
 			"down_circle_with_line_create",
 			"()\n",
 			"draw",
@@ -366,7 +415,7 @@
 	"groups":
 	[
 		{
-			"selected": 5,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -375,15 +424,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5185,
+						"buffer_size": 5509,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2883,
-								2883
+								20,
+								20
 							]
 						],
 						"settings":
@@ -391,328 +440,61 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
 								"bh_single_quote_close",
 								"bh_single_quote_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content"
-							],
-							"syntax": "Packages/Lua/Lua.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1350.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "app/mvp.lua",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4308,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2284,
-								2284
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
 								"bh_double_quote",
 								"bh_double_quote_center",
 								"bh_double_quote_open",
 								"bh_double_quote_close",
 								"bh_double_quote_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content"
-							],
-							"syntax": "Packages/Lua/Lua.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "app/miaolib.lua",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3877,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								52,
-								52
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
 								"bh_c_define",
 								"bh_c_define_center",
 								"bh_c_define_open",
 								"bh_c_define_close",
 								"bh_c_define_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
 								"bh_regex",
 								"bh_regex_center",
 								"bh_regex_open",
 								"bh_regex_close",
 								"bh_regex_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content"
-							],
-							"syntax": "Packages/Lua/Lua.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": -0.0,
-						"translation.y": 1953.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "app/background.lua",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 1331,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
 								"bh_default",
 								"bh_default_center",
 								"bh_default_open",
 								"bh_default_close",
 								"bh_default_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
 								"bh_curly",
 								"bh_curly_center",
 								"bh_curly_open",
 								"bh_curly_close",
 								"bh_curly_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
 								"bh_unmatched_close",
-								"bh_unmatched_content"
+								"bh_unmatched_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content"
 							],
 							"syntax": "Packages/Lua/Lua.tmLanguage",
 							"tab_size": 4,
@@ -726,185 +508,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "app/ob_frame.lua",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 13232,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5527,
-								5527
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content"
-							],
-							"syntax": "Packages/Lua/Lua.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2622.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "app/scenes/game.lua",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 11614,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4184,
-								4184
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content"
-							],
-							"syntax": "Packages/Lua/Lua.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2305.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
+					"buffer": 1,
 					"file": "app/miaoconfig.lua",
 					"semi_transient": false,
 					"settings":
@@ -916,8 +520,8 @@
 						"selection":
 						[
 							[
-								289,
-								289
+								210,
+								210
 							]
 						],
 						"settings":
@@ -925,21 +529,108 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
 								"bh_double_quote",
 								"bh_double_quote_center",
 								"bh_double_quote_open",
 								"bh_double_quote_close",
 								"bh_double_quote_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content"
+							],
+							"syntax": "Packages/Lua/Lua.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/scenes/game.lua",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 11168,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								11095,
+								11095
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
 								"bh_default",
 								"bh_default_center",
 								"bh_default_open",
@@ -955,11 +646,176 @@
 								"bh_tag_open",
 								"bh_tag_close",
 								"bh_tag_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
+							],
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true,
+							"word_wrap": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 10232.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/gameover.lua",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2451,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1709,
+								1709
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
 								"bh_angle",
 								"bh_angle_center",
 								"bh_angle_open",
 								"bh_angle_close",
 								"bh_angle_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content"
+							],
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 186.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 4,
+					"file": "app/ob_frame.lua",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 22242,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9762,
+								9762
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
@@ -975,19 +831,131 @@
 								"bh_regex_open",
 								"bh_regex_close",
 								"bh_regex_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
 								"bh_unmatched_close",
-								"bh_unmatched_content"
+								"bh_unmatched_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content"
 							],
-							"syntax": "Packages/Lua/Lua.tmLanguage"
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true,
+							"word_wrap": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5696.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "app/score.lua",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 724,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								527,
+								527
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content"
+							],
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
@@ -1010,11 +978,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.304373168945,
 			1.0
 		],
 		"rows":
@@ -1045,7 +1020,7 @@
 		[
 			[
 				"",
-				"grid.lua"
+				"miaoconfig.lua"
 			]
 		],
 		"width": 0.0
@@ -1077,11 +1052,26 @@
 	"selected_group": 0,
 	"settings":
 	{
+		"last_automatic_layout":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		]
 	},
-	"show_minimap": true,
+	"show_minimap": false,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 187.0,
 	"status_bar_visible": true,
 	"template_settings":

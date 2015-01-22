@@ -22,3 +22,4 @@ function random_color()
     return color_pre[math.random(1,5)]
 end
 down_rate=400*screen_scale
+ob_m=cc.PhysicsMaterial(100,0,100)

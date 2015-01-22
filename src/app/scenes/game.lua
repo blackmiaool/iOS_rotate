@@ -107,15 +107,15 @@ function GameScene:start()
     local mvp=self.mvp
     local scene=self
 
+
+ 
     print("start")
     mvp.shield:out()
     rear_enable=false
     math.randomseed(os.time())
-
-
     local ac_down=cc.MoveBy:create(1,cc.p(0,-down_rate))
     ac_down=cc.RepeatForever:create(ac_down)
-    -- scene.ob_layer:runAction(ac_down)
+     scene.ob_layer:runAction(ac_down)
 
     local vz=cc.Director:getInstance():getVisibleSize()
 
@@ -132,7 +132,8 @@ function GameScene:start()
     scene:addChild(scene:layer_create())
 
 
-    function scene_update()
+    local function scene_update()
+
         -- local R=math.random(1,3)
         -- local num=math.random(1,3)
         -- local ob_test=ob_loop_with_circles(140*screen_scale,20*screen_scale,40,num,90,random_color(),{random_color(),random_color(),random_color()})
@@ -145,21 +146,15 @@ function GameScene:start()
         --local ob=bad_delta_create(color_pre[1],0)
         --local ob=down_circle_create(math.random(0,1),random_color())
         --local ob=down_circle_set_create(math.random(1,4),random_color())
+                --local ob=down_circle_with_line_set_create(2,screen_y*0.1,start_y/speed)
         local speed=5
         local start_y=screen_y*1.6
-        local ob=down_circle_with_line_set_create(2,screen_y*0.1,start_y/speed)
-        local ac=cc.MoveBy:create(speed,cc.p(0,-start_y))
-        ac=cc.Sequence:create(ac,cc.CallFunc:create(
-            function(para)
-                --print(para)
-                --print("rm")
-                para:removeFromParent()
-            end
-            ,{ob}))
-        ob:runAction(ac)
-        ob.name="ob"
-        scene.bg:addChild(ob)
-        ob:setPosition(screen_x/2,screen_y*1.1)
+
+        -- local ob=three_line_set_create("right",screen_y*0.1,start_y/speed)
+        -- ob.name="ob"
+        -- ob:setPosition(screen_x/2,screen_y*1.1-scene.ob_layer:getPositionY())
+        -- scene.ob_layer:addChild(ob)
+        
 
     end
 
@@ -171,6 +166,7 @@ function GameScene:start()
 
     --print("ddddd"..scene.ddd)
     local function onContactBegin(contact,a,b)
+        print("contact")
         local retval;
         local nodeA=contact:getShapeA():getBody():getNode()
         local nodeB=contact:getShapeB():getBody():getNode()
@@ -178,9 +174,13 @@ function GameScene:start()
         local core;
         local ob;
         if not nodeA or not nodeB then
+            print("none")
             return nil
         end
-
+        if nodeA.kind=="ob_frame" and nodeB.kind=="ob_frame" then
+            print("cdcccc")
+            return true
+        end
         if nodeA==mvp.shield or nodeB==mvp.shield then
 
 
@@ -236,7 +236,7 @@ function GameScene:start()
     eventDispatcher:setEnabled(true)
 
     eventDispatcher:addEventListenerWithSceneGraphPriority(contact, scene)
-local miao=cc.ParticleSystemQuad:create("bg.plist")
+--local miao=cc.ParticleSystemQuad:create("bg.plist")
 --scene:addChild(miao)
 --miao:setPosition(screen_x/2,screen_y/2)
 
@@ -252,7 +252,7 @@ local miao=cc.ParticleSystemQuad:create("bg.plist")
     --    scene:addChild(left_body)
     --    scene:addChild(right_body)
 
-    scene:getPhysicsWorld():setGravity(cc.p(0,-screen_x*2))
+    --scene:getPhysicsWorld():setGravity(cc.p(0,-screen_x*2))
 end
 
 
@@ -268,6 +268,9 @@ function GameScene.create()
     --    score=dofile("../../../../../src/app/score.lua")
     --    mvp=dofile("../../../../../src/app/mvp.lua")
     bg=background2_c()
+    local ob_layer=cc.Layer:create()
+    scene.ob_layer=ob_layer;
+    
     cover=cover_c()
     score=score_c()
     mvp=mvp_c()
@@ -275,15 +278,14 @@ function GameScene.create()
     scene.cover=cover
     scene.score=score
     scene.mvp=mvp
-    scene:addChild(score,20)
+    scene:addChild(score,15)
 
-    scene:addChild(mvp,11)
+    scene:addChild(mvp,1)
     scene:addChild(bg)
+    scene:addChild(ob_layer)
 
 
-
-    scene.bg=bg 
-    --scene:getPhysicsWorld():setDebugDrawMask(cc.PhysicsWorld.DEBUGDRAW_ALL)
+    --scene:getPhysicsWorld():setDebugDrawMask(cc.PhysicsWorld.DEBUGDRAW_ALL) 
     --local cover=require("cover")
     --score=require("score")
     scene.score=score
@@ -314,11 +316,11 @@ function GameScene.create()
 
 
     function rear_update(force_start)
-
+        --print(ob_layer:getPosition())
         if not rear_enable then
             return ;
         else
-            return
+          
         end
 
         score:setNum(score.num+1)
@@ -353,7 +355,7 @@ function GameScene.create()
     open_btn:setTitleLabelForState(btn_sprite,cc.CONTROL_STATE_NORMAL)
     open_btn:registerControlEventHandler(function()print("down")end,cc.CONTROL_EVENTTYPE_TOUCH_UP_INSIDE)
     open_btn:setPosition(screen_x*0.90,score_y)
-    scene:addChild(open_btn,11)
+    scene:addChild(open_btn,1)
 
 
 
@@ -368,7 +370,13 @@ function GameScene.create()
         scene:start(bg)
     end
 
-
+    -- line:setScale(0.5)
+    -- line:setPosition(100,100)
+    -- bg:addChild(line)
+    local ob=down_circle_with_box_create("left",screen_y*0.1,0)
+    ob:setPosition(sx/2,400)
+    ob_layer:addChild(ob)
+    --ob.rect:remove()
     --    local scheduler = require(cc.PACKAGE_NAME .. ".scheduler")
     --    function listener()
     --    
@@ -377,7 +385,10 @@ function GameScene.create()
 
 
 
-    --gameover()
+--     local core=four_line_set_create("left",height,speed)
+-- scene.core=core
+--     core:setPosition(sx/2,100)
+--     scene:addChild(core)
 
 
 

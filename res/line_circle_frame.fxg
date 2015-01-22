@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Graphic version="2.0" viewHeight="400" viewWidth="550" ATE:version="1.0.0" flm:version="1.0.0" d:id="1" d:using="" xmlns="http://ns.adobe.com/fxg/2008" xmlns:ATE="http://ns.adobe.com/ate/2009" xmlns:d="http://ns.adobe.com/fxg/2008/dt" xmlns:flm="http://ns.adobe.com/flame/2008">
+  <Library/>
+  <Group blendMode="normal" d:type="layer" d:userLabel="Layer 1">
+    <Group flm:isDrawingObject="false">
+      <Path data="M398.2 -224.55Q404.3 -218.55 412.65 -218.35L-250.7 -218.35 -250.7 -260.75 412.65 -260.75Q404.3 -260.55 398.2 -254.55 392 -248.35 392 -239.55 392 -230.75 398.2 -224.55Z">
+        <fill>
+          <SolidColor color="#FFFFFF"/>
+        </fill>
+      </Path>
+      <Path data="M424.95 266.95 171 266.95 171 13 424.95 13Z">
+        <fill>
+          <LinearGradient x="170.975" y="139.95" scaleX="253.95">
+            <GradientEntry ratio="0" color="#FF0000"/>
+            <GradientEntry ratio="0.16470588" color="#FFFF00"/>
+            <GradientEntry ratio="0.36470588" color="#00FF00"/>
+            <GradientEntry ratio="0.49803922" color="#00FFFF"/>
+            <GradientEntry ratio="0.66666667" color="#0000FF"/>
+            <GradientEntry ratio="0.83137255" color="#FF00FF"/>
+            <GradientEntry ratio="1" color="#FF0000"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+      <Path data="M394.1 -239.55Q394.1 -247.4 399.65 -252.9 405.25 -258.4 412.95 -258.4 420.8 -258.4 426.3 -252.9 431.8 -247.4 431.8 -239.55 431.8 -231.75 426.3 -226.25 420.8 -220.7 412.95 -220.7 405.25 -220.7 399.65 -226.25 394.1 -231.75 394.1 -239.55Z">
+        <stroke>
+          <SolidColorStroke weight="4.7" color="#FFFFFF"/>
+        </stroke>
+      </Path>
+      <Path data="M424.95 266.95 171 266.95 171 13 424.95 13Z">
+        <stroke>
+          <SolidColorStroke color="#3300FF" alpha="0.49803922"/>
+        </stroke>
+      </Path>
+    </Group>
+  </Group>
+  <Private>
+      <xfl:PrivateElement d:ref="#1" xmlns:xfl="http://ns.adobe.com/xfl/2008/">
+        <xfl:publishSettings xfl:source=""/>
+        <xfl:mobileSettings xfl:source=""/>
+        <xfl:as3ExportItems/>
+      </xfl:PrivateElement>
+    </Private>
+  </Graphic>

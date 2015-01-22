@@ -1,149 +1,11 @@
-local ob_m=cc.PhysicsMaterial(100,0,100)
---function bad(dest)
---    local x,y=dest.x,dest.y
---    print("x,y="..x..y)
---    local good=cc.Node:create()
---    local top=bad_line_create(0,dest.x,color)
---    top:setPosition(x/2,y)
---    good:addChild(top)
---
---    local bottom=bad_line_create(0,x,color)
---    bottom:setPosition(x/2,0)
---    good:addChild(bottom)
---
---    local left=bad_line_create(90,y,color)
---    left:setPosition(0,y/2)
---    good:addChild(left)
---
---    local right=bad_line_create(90,y,color)
---    right:setPosition(x,y/2)
---    good:addChild(right)
---
---    return good
---end
---function bad_line_create(angle,length,color)
---    --local line=cc.NVGDrawNode:create()
---    local line=cc.Sprite:create("bad.png")
---    line.kind="ob_frame"
---    local x1,y1=0,0
---    local x2,y2=length*math.cos(angle/xishu),length*math.sin(angle/xishu)
---
---    line:setScale(0.2,length/line:getContentSize().height)
---
---    --line:drawLine(cc.p(x1,y1),cc.p(x2,y2),color)
---
---    line:setPhysicsBody(cc.PhysicsBody:createEdgeBox(cc.size(x2-x1,y2-y1),cc.PhysicsMaterial(100,0,100),1))
---
---    line:getPhysicsBody():setRotationOffset((90-angle))
---    line:setRotation((90-angle))
---    line:getPhysicsBody():setContactTestBitmask(0x1)
---    local ob=line
---    function line:remove()
---        local v=100
---        local density=3
---        local org=line:getParent():convertToWorldSpace(cc.p(line:getPosition()))
---        local x_origin,y_origin=org.x,org.y
---        local parent=ob:getParent()
---        for i=1,length/density do
---            local frag=cc.Sprite:create("frag.png")
---            local scale=density/frag:getContentSize().width
---            local x,y;
---            x=x_origin+(length/density/2-i-1)*density*math.cos(angle/xishu)
---            y=y_origin+(length/density/2-i-1)*density*math.sin(angle/xishu)
---
---            frag:setPosition(x,y)
---            frag:setScale(scale)
---            local ph1_deltax=math.random(-50,50)*screen_scale
---            local ph1_deltay=math.random(-50,50)*screen_scale
---            local ph1_time=math.random(2,4)/10
---            local ph1_scale=math.random(2,4)/10
---
---            local ph1_ac_moveBy=cc.MoveBy:create(ph1_time,cc.p(ph1_deltax,ph1_deltay))
---            local ph1_ac_scale=cc.ScaleBy:create(ph1_time,ph1_scale,ph1_scale)
---            local moveBy=cc.Spawn:create(ph1_ac_moveBy,ph1_ac_scale)
---            moveBy=cc.EaseSineOut:create(moveBy)
---
---            local move=cc.MoveTo:create(0.5,cc.p(main_scene.mvp:getPosition()))
---            move=cc.EaseSineOut:create(move)
---            local ac=cc.Sequence:create(
---                moveBy,move,cc.CallFunc:create(function()frag:removeFromParent()end,{0}))
---            frag:runAction(ac)
---
---            main_scene:addChild(frag)
---
---        end
---        line:removeFromParent()
---        print("line")
---    end
---    return line
---end
---
---
---function bad_rect_create(dest)
---    local rect=cc.NVGDrawNode:create()
---    rect:drawRect(cc.rect(0,0,dest.x,dest.y),cc.c4f(1,1,1,1))
---    rect:setLineWidth(5*screen_scale)
---    rect.kind="ob_frame"
---    rect:setPhysicsBody(cc.PhysicsBody:createEdgeBox(
---        cc.size(dest.x,dest.y),cc.PhysicsMaterial(100,0,100),1,cc.p(dest.x/2,dest.y/2)))
---    rect:getPhysicsBody():setContactTestBitmask(0x1)
---    rect:setFillColor(cc.c4f(1,1,1,0))
---    return rect
---end
---
---
-----dir 0:left 1:middle 2:center
---function bad_gap_set_create(color,dir)
---    local node=cc.Node:create()
---    local line_gap=100*ss
---    local line_delta=60*ss
---    for i=1,3 do
---        local gap=bad_gap_create(color)
---        gap:setPosition((dir-1)*line_delta*(i-2),line_gap*(i-2))
---        node:addChild(gap)
---    end
---    return node;
---end
---
---function bad_gap_create(color_set)
---    local color=color_set
---    local r=30*screen_scale
---    local line=cc.Node:create()
---    local gap=300*screen_scale
---    color=random_color()
---    local line_left=line_circle_create(90,r,color)
---    color=random_color()
---    local line_right=line_circle_create(0,r,color)
---    line_left:setPosition(-(r+gap/2),0)
---    line_right:setPosition((r+gap/2),0)
---    line:addChild(line_left)
---    line:addChild(line_right)
---    return line;
---end
---
---
---function bad_delta_create(color_set,dir)
---    local color=color_set
---    local r=30*screen_scale
---    local line=cc.Node:create()
---    local gap=300*screen_scale
---    local delta=0*screen_scale
---    color=random_color()
---    local line_left=down_line_circle_create(90,r,color)
---    color=random_color()
---    local line_right=down_line_circle_create(0,r,color)
---    line_left:setPosition(delta,(gap*(dir-0.5)*2))
---    line_right:setPosition(-delta,0)
---    line:addChild(line_left)
---    line:addChild(line_right)
---    return line;
---end
+
+require("miaoconfig")
 
 function circle_body(center,r)
     local body= cc.PhysicsBody:createCircle(r,ob_m,center):getFirstShape()
     return body
 end
-
+local empty_width=5*ss
 
 --[[--
 create ob circle
@@ -155,7 +17,7 @@ create ob circle
 create ob
 @param empty 0:empty 1 2 3
 ]]
-local frag_size=10*ss
+local frag_size=20*ss
 
 function frag_create()
     local frag=cc.Sprite:create("frag.png")
@@ -165,7 +27,7 @@ function frag_create()
 
     local ph1_deltax=math.random(-50,50)*screen_scale
     local ph1_deltay=math.random(-50,50)*screen_scale
-    local ph1_time=math.random(2,4)/10
+    local ph1_time=math.random(2,4)
     local ph1_scale=math.random(2,4)/10
 
     local ph1_ac_moveBy=cc.MoveBy:create(ph1_time,cc.p(ph1_deltax,ph1_deltay))
@@ -176,7 +38,7 @@ function frag_create()
     local ac=cc.Sequence:create(
         moveBy,cc.CallFunc:create(function()frag:removeFromParent()end,{0}))
     frag:runAction(ac)
-    main_scene:addChild(frag)
+    main_scene.ob_layer:addChild(frag)
     return frag
 end
 function frag_rect_create(rect)
@@ -185,7 +47,8 @@ function frag_rect_create(rect)
         local x=rect.x+xp*frag_size
         local y=rect.y+yp*frag_size
 
-        frag:setPosition(x,y)
+        frag:setPosition(x-main_scene.ob_layer:getPositionX()
+            ,y-main_scene.ob_layer:getPositionY())
     end
     for i=1,rect.width/frag_size do
         for j in pairs({1,rect.height/frag_size}) do
@@ -214,28 +77,457 @@ function down_circle_with_line_set_create(dir,height,speed)
     local length=sx/4
     local order=dir-1
     local gap=200*ss
-    local single=down_circle_with_line_create(length,cc.c4f(1,1,1,1),80,height/speed)
+    local single=down_circle_with_line_create(length,80,height/speed)
     single:setPosition(0,(1-order)*gap)
     local double={}
     for i=1,2 do
         local xishu=(i-1.5)*2
-        double[i]=down_circle_with_line_create(length,cc.c4f(1,1,1,1),80,height/speed+gap/speed)
+        double[i]=down_circle_with_line_create(length,80,height/speed+gap/speed,speed)
         double[i]:setPosition(sx/4*xishu,order*gap)
         node:addChild(double[i])
 
     end
     node:addChild(single)
-    node:addChild(remover())
+    --   node:addChild(remover())
     return node
 end
+--dir left or right
+-- function four_line_set_create(dir,height,speed)
+--     local node=cc.Node:create()
+--     local line={}
+--     local circle_width;
 
-function down_circle_with_line_create(length,color,threshold,delay)
+--     function circle_shape(color)
+--         local circle;
+--         if color==shadow_color then
+--             circle=cc.Sprite:create("circle_big_shadow.png")
+--         else
+--             circle=cc.Sprite:create("circle_big.png")
+--         end
+--         circle_width=circle:getContentSize().width;
+--         return circle
+--     end
+
+--     local circle=circle_shape(cc.c4f(1,1,1,1))
+
+--     circle:setScale(ss)
+
+--     local circle_shadow=circle_shape(shadow_color)
+--     circle_shadow:setScale(ss)
+
+
+
+--     node:addChild(circle_shadow,-1)
+--     node:addChild(circle)
+--     circle:setPositionZ(1)
+--     local rotate_speed=90
+--     local threshold=50
+--     for i=1,4 do
+--         node[i]=math.random(1,100)>threshold
+--     end
+
+--     local width
+--     local height
+--     function node:line_create(color,i)
+
+--         local node1=cc.Node:create()
+--         node1:setAnchorPoint(0.5,0.5)
+--         function node1:handle(ob,shield)
+--             print("handle")
+--             return true
+--         end
+--         function node1:remove()
+--             print("remove")
+--             return true
+--         end
+
+--         local line;
+--         if node[i] then
+--             if color==shadow_color then
+--                 line=cc.Sprite:create("line_of_circle_frame_shadow.png")
+
+--             else
+--                 line=cc.Sprite:create("line_of_circle_frame.png")
+--                 line:setPositionZ(1)
+--             end
+--         else
+--             if color==shadow_color then
+--                 line=cc.Sprite:create("line_of_circle_shadow.png")
+
+--             else
+--                 line=cc.Sprite:create("line_of_circle.png")
+--                 line:setPositionZ(1)
+--             end
+--         end
+--         function line:handle()
+--             print("handle")
+--         end
+--         local bias=circle_width*ss/3
+
+--         width=line:getContentSize().width
+--         width=width*ss
+--         height=line:getContentSize().height
+--         height=height*ss
+--         line:setScale(ss)
+--         node1:setRotation(i*90)
+--         node1:addChild(line)
+--         line:setPosition(bias+width/2,0)
+--         if i==1 and color~= shadow_color then
+--             line:setPhysicsBody(cc.PhysicsBody:createBox(cc.size(width,height),ob_m,cc.p(0,0)))
+--             line:getPhysicsBody():setGravityEnable(false)
+--             line:getPhysicsBody():setContactTestBitmask(0x1)
+--             line:setRotation(i*90)
+--             line:setPosition(width,0)
+--         end
+--         if i==2 and color~= shadow_color then
+--             line:setPhysicsBody(cc.PhysicsBody:createBox(cc.size(width,height),ob_m,cc.p(0,0)))
+--             line:getPhysicsBody():setGravityEnable(false)
+--             line:getPhysicsBody():setContactTestBitmask(0x1)
+--             line:setRotation(i*90)
+--             line:setPosition(width/2-bias,width/2-2*bias)
+--         end
+--         if i==3 and color~= shadow_color then
+--             line:setPhysicsBody(cc.PhysicsBody:createBox(cc.size(width,height),ob_m,cc.p(0,0)))
+--             line:getPhysicsBody():setGravityEnable(false)
+--             line:getPhysicsBody():setContactTestBitmask(0x1)
+--             line:setRotation(i*90)
+--             line:setPosition(width,width+2*bias)
+--         end
+--         if i==4 and color~= shadow_color then
+--             line:setPhysicsBody(cc.PhysicsBody:createBox(cc.size(width,height),ob_m,cc.p(0,0)))
+--             line:getPhysicsBody():setGravityEnable(false)
+--             line:getPhysicsBody():setContactTestBitmask(0x1)
+--             line:setRotation(i*90)
+--             line:setPosition(2*width-3*bias,bias+width/2)
+--         end
+
+--         line.kind="ob_frame"
+        
+
+        
+
+        
+--         if color~=shadow_color then
+
+
+--         end
+
+
+
+
+--         return node1
+--     end
+--     local x;
+--     if dir=="left" then
+--         x=0
+--     else
+--         x=0
+--     end
+--     for i=1,4 do
+--         local line=node:line_create(cc.c4f(1,1,1,1),i)
+--         local shadow=node:line_create(shadow_color,i)        
+--         line:setPosition(x,0)          
+
+--         shadow:setPosition(x+shadow_delta/2,-shadow_delta) 
+--         if i==2 then
+--                    node:addChild(shadow)
+--         node:addChild(line) 
+--         end       
+
+
+
+--     end
+--     circle:setPosition(x,0)
+--     circle_shadow:setPosition(x+shadow_delta/2,-shadow_delta)
+
+    
+--     --node:setAnchorPoint(0.5,0.5)
+--     node.width=width
+--     node.height=height
+--             local ac=cc.RotateBy:create(1,rotate_speed)
+--         ac=cc.RepeatForever:create(ac)
+--         node:runAction(ac)
+--        -- local width=sx/2
+--     -- local height=sx/2
+--     -- scene.core:setPhysicsBody(cc.PhysicsBody:createBox(cc.size(width*2,height*2),ob_m))
+--     -- scene.core:getPhysicsBody():setGravityEnable(false)
+--     -- scene.core:getPhysicsBody():setContactTestBitmask(0x1)
+--     -- scene.core:setPosition(sx/2,100)
+--     return node;
+-- end
+local my_white=cc.c4f(1,1,1,1)
+
+function element_rect_create(empty,width,height,color,ac,mask,bias,line_width)
+
+    local node=cc.Node:create()
+  if not bias then
+                bias=cc.p(0,0)
+            end
+    node.color=color
+    node.empty=empty
+    function node:remove()
+        local parent=self:getParent()
+        local done=parent.done
+        if not done then
+            parent.done=true
+            local children=parent:getChildren()
+            for i,j in pairs(children) do
+                j:remove()
+            end
+        else
+            print(node.color.r)
+            local org=parent:convertToWorldSpace(cc.p(node:getPosition()))
+            
+            if node.color==shadow_color then
+                node:removeFromParent()
+                return;
+            end
+            node:removeFromParent()
+            frag_rect_create(cc.rect(org.x-width/2,org.y-height/2,width,height)) 
+
+        end
+              
+    end
+    function node:handle(ob,shield)
+        if node.empty then
+            return true
+        else
+            return false
+        end
+    end
+    function shape(color)
+        local node=cc.DrawNode:create()
+        if empty then
+            -- node:drawRect(cc.p(-width/2,-height/2),
+            --     cc.p(width/2,height/2),
+            --     color,100)
+            --node:setLineWidth(100)
+            local delta=empty_width/2
+
+            node:drawPolygon({
+                cc.p(bias.x-width/2+delta,bias.y-height/2+delta),
+                cc.p(bias.x+width/2-delta,bias.y-height/2+delta),
+                cc.p(bias.x+width/2-delta,bias.y+height/2-delta),
+                cc.p(bias.x-width/2+delta,bias.y+height/2-delta)},
+                4,cc.c4f(0,0,0,0),empty_width,color);
+     
+        else
+            node:drawSolidRect(cc.p(-width/2,-height/2),
+                cc.p(width/2,height/2),
+                color)
+        end
+        return node
+    end
+
+
+    local shape_this=shape(color)
+    if color==shadow_color then
+        node:addChild(shape_this)         
+        return node
+    else            
+        node:addChild(shape_this) 
+    end
+
+    node:setPhysicsBody(cc.PhysicsBody:createBox(cc.size(width,height),ob_m,bias))
+    node:getPhysicsBody():setContactTestBitmask(mask)
+    node:getPhysicsBody():setCategoryBitmask(mask)
+    node:getPhysicsBody():setGravityEnable(false)
+    node:getPhysicsBody():setCollisionBitmask(mask)
+    node.kind="ob_frame"
+    if ac then
+        node:runAction(ac)
+    end
+    return node;
+end
+
+function  down_circle_with_box_create(dir,height,speed)
+    local node=cc.Node:create()
+    
+    local rect_a=sx/10
+    local rect_a_half=rect_a/2
+    function rect_shape(half,color)
+        local rect=cc.DrawNode:create()
+        rect:drawSolidRect(cc.p(-half,-half),
+            cc.p(half,half),
+            color)              
+        return rect      
+    end
+    function rotate_shape(color)
+        local out_time=sx/speed;
+        local node=cc.Node:create()
+        local rect=cc.DrawNode:create()
+        -- rect:drawSolidRect(cc.p(-half,-half),
+        --     cc.p(half,half),
+        --     color)
+        return node;
+    end
+
+--    local rect=rect_shape(rect_a/2,cc.c4f(1,1,1,1))
+    local rect=element_rect_create(false,rect_a,rect_a,my_white,nil,0x01)
+    local rect_shadow=element_rect_create(true,rect_a,rect_a,shadow_color)
+    local line_len=70
+    local line=element_rect_create(true,rect_a*4,rect_a/3,my_white,nil,0x02,cc.p(line_len,0))
+    local line_shadow=element_rect_create(true,rect_a*4,rect_a/3,shadow_color,nil,0x02,cc.p(line_len,0))
+
+    rect_shadow:setPosition(shadow_delta/2,-shadow_delta)
+    --node:addChild(rect_shadow)
+    node.rect=rect;
+        node:addChild(rect_shadow)
+    node:addChild(line_shadow)
+    node:addChild(rect)
+    line:setPosition(0,0)
+    line_shadow:setPosition(shadow_delta/2,-shadow_delta)
+    node:addChild(line)
+
+
+
+
+    --local ac=cc.Move
+
+    -- local rotate=rotate_shape(my_white)
+    -- local rotate_shadow=rotate_shape(shadow_color)
+    -- node:addChild(rotate_shadow)
+    -- node:addChild(rotate)
+    -- local root=cc.Node:create()
+    -- root:addChild(node_shadow)
+    -- root:addChild(node)
+    
+    local rotate_ac=cc.RotateBy:create(1,90)
+    rotate_ac=cc.RepeatForever:create(rotate_ac)
+    line:runAction(rotate_ac)
+    line_shadow:runAction(rotate_ac:clone())
+
+    return node;
+end 
+
+function three_line_set_create(dir,height,speed)
+    local node=cc.Node:create()
+    local length=sx/4
+    local gap=sx/2*ss
+    local line={}
+    local r=20*ss
+    function three_line_create(length,threshold,delay,dir,speed)
+        local node=cc.Node:create()
+        node:setAnchorPoint(0.5,0.5)
+        node.kind="ob_frame"
+        node.name="three_line"
+        node.length=length
+        print(speed)
+        local move_time=1*100/speed
+        local r=20*ss
+        local line_width=14*ss
+        node.ball=math.random(1,100)>threshold
+        function node:handle(ob,shield)
+            print(ob.x,shield.x)
+            local delta=ob.x-shield.x
+            if delta<-sx/3 then
+                if node.ball and dir=="left" then
+                    return true        
+                end
+            elseif delta>sx/3 then
+                if node.ball and dir=="right" then
+                    return true        
+                end
+
+            end
+            return false
+        end
+        function node:remove()
+            local org=self:getParent():convertToWorldSpace(cc.p(node:getPosition()))
+            self:removeFromParent()
+            --print("remove")
+            if dir=="left" then
+                frag_rect_create(cc.rect(org.x,org.y,sx/2,r*2))
+            else
+                frag_rect_create(cc.rect(org.x-sx/2,org.y,sx/2,r*2))
+            end
+            return true
+        end
+        function node:shape(color)
+            local scale_time=1
+            local node1=cc.Node:create()
+            local line;
+
+            if node.ball then
+                if color==shadow_color then
+                    line=cc.Sprite:create("line_circle_frame_shadow.png")
+                else
+                    line=cc.Sprite:create("line_circle_frame.png")
+                end
+            else
+                if color==shadow_color then
+                    line=cc.Sprite:create("line_circle_shadow.png")
+                else
+                    line=cc.Sprite:create("line_circle.png")
+                end
+            end
+
+            if dir=="left" then
+                line:setPosition(-sx/2/ss,0)
+                local ac=cc.MoveTo:create(move_time,cc.p(0,0))
+                ac=cc.Sequence:create(cc.DelayTime:create(delay),ac)
+                line:runAction(ac)
+            else
+                line:setPosition(-sx/2/ss,0)
+                local ac=cc.MoveTo:create(move_time,cc.p(0,0))
+                ac=cc.Sequence:create(cc.DelayTime:create(delay),ac)
+                line:runAction(ac)
+            end
+
+            node1:addChild(line)
+            node1:setScale(ss)
+            return node1
+        end   
+        local shadow=node:shape(shadow_color)
+        if dir=="left" then
+            shadow:setPosition(shadow_delta/2,-shadow_delta)
+        else
+            shadow:setPosition(-shadow_delta/2,-shadow_delta)
+        end
+
+        node:addChild(shadow)
+        node:addChild(node:shape(cc.c4f(1,1,1,1)),1)
+        --print(length*6,r)
+        node:setPhysicsBody(cc.PhysicsBody:createBox(cc.size(sx+2*r,r*2),ob_m))
+
+
+
+        node:getPhysicsBody():setContactTestBitmask(0x1)
+        node:getPhysicsBody():setGravityEnable(false)
+        return node
+    end
+    for i=1,3 do
+        line[i]=three_line_create(length,50,(i-1)*gap/speed+height/speed,dir,speed)
+        local length=cc.Sprite:create("line_circle.png"):getContentSize().width*ss
+        if dir=="left" then
+            line[i]:setPosition(-sx/2,(i-1)*gap)
+        else
+
+            line[i]:setScale(-1,1)
+            line[i]:setPosition(sx*1/2,(i-1)*gap)
+        end
+        --line[i]:setPosition(r-length/2,(i-1)*gap)
+
+        --print(sx*3/4+r-length/2)
+        node:addChild(line[i])
+    end
+    return node
+
+end
+
+
+
+
+
+
+function down_circle_with_line_create(length,threshold,delay,speed)
     local node=cc.Node:create()
     node:setAnchorPoint(0.5,0.5)
     node.kind="ob_frame"
     node.name="circle_with_line"
     node.length=length
     local r=20*ss
+    local color=cc.c4f(1,1,1,1)
     local line_width=14*ss
     node.left1=math.random(1,100)>threshold
     node.right1=math.random(1,100)>threshold
@@ -318,17 +610,17 @@ function down_circle_with_line_create(length,color,threshold,delay)
 
 
         if node.left1 then
---            circle[1]=cc.NVGDrawNode:create()    
---            circle[1]:drawCircle(cc.p(-1*length/2,0),r-empty_width/4,color);
---            circle[1]:setLineWidth(empty_width);
+            --            circle[1]=cc.NVGDrawNode:create()    
+            --            circle[1]:drawCircle(cc.p(-1*length/2,0),r-empty_width/4,color);
+            --            circle[1]:setLineWidth(empty_width);
             if(color~=shadow_color) then
                 circle[1]=cc.Sprite:create("circle_frame.png")
-                
+
             else
                 circle[1]=cc.Sprite:create("circle_frame_shadow.png")
 
             end
-            
+
             circle[1]:setPosition(cc.p(0,0))
 
         end
@@ -342,9 +634,9 @@ function down_circle_with_line_create(length,color,threshold,delay)
             end
 
             circle[2]:setPosition(cc.p(0,0))
---            circle[2]=cc.NVGDrawNode:create()
---            circle[2]:drawCircle(cc.p(length/2,0),r-empty_width/4,color)
---            circle[2]:setLineWidth(empty_width)
+            --            circle[2]=cc.NVGDrawNode:create()
+            --            circle[2]:drawCircle(cc.p(length/2,0),r-empty_width/4,color)
+            --            circle[2]:setLineWidth(empty_width)
         end
 
         if not circle[1] then
@@ -378,7 +670,7 @@ function down_circle_with_line_create(length,color,threshold,delay)
             ac=cc.Sequence:create(cc.DelayTime:create(delay),ac)
             circle[i]:setScale(ss)
             circle[i]:runAction(ac)
-            
+
         end
 
         node1:addChild(circle[1],2)
