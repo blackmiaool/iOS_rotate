@@ -114,6 +114,7 @@ function GameScene:start()
     rear_enable=false
     math.randomseed(os.time())
     local ac_down=cc.MoveBy:create(1,cc.p(0,-down_rate))
+    scene.ob_layer.speed=down_rate
     ac_down=cc.RepeatForever:create(ac_down)
      scene.ob_layer:runAction(ac_down)
 
@@ -147,13 +148,14 @@ function GameScene:start()
         --local ob=down_circle_create(math.random(0,1),random_color())
         --local ob=down_circle_set_create(math.random(1,4),random_color())
                 --local ob=down_circle_with_line_set_create(2,screen_y*0.1,start_y/speed)
-        local speed=5
-        local start_y=screen_y*1.6
-
+            local speed=5
+            local start_y=screen_y*1.6
+            local ob=down_circle_with_box_create_pre(50)
+   
         -- local ob=three_line_set_create("right",screen_y*0.1,start_y/speed)
         -- ob.name="ob"
         -- ob:setPosition(screen_x/2,screen_y*1.1-scene.ob_layer:getPositionY())
-        -- scene.ob_layer:addChild(ob)
+         scene.ob_layer:addChild(ob)
         
 
     end
@@ -353,7 +355,7 @@ function GameScene.create()
     btn_sprite:setScale(0.18*ss)
 
     open_btn:setTitleLabelForState(btn_sprite,cc.CONTROL_STATE_NORMAL)
-    open_btn:registerControlEventHandler(function()print("down")end,cc.CONTROL_EVENTTYPE_TOUCH_UP_INSIDE)
+    open_btn:registerControlEventHandler(function()print("down")gameover(scene)end,cc.CONTROL_EVENTTYPE_TOUCH_UP_INSIDE)
     open_btn:setPosition(screen_x*0.90,score_y)
     scene:addChild(open_btn,1)
 
@@ -373,9 +375,9 @@ function GameScene.create()
     -- line:setScale(0.5)
     -- line:setPosition(100,100)
     -- bg:addChild(line)
-    local ob=down_circle_with_box_create("left",screen_y*0.1,0)
-    ob:setPosition(sx/2,400)
-    ob_layer:addChild(ob)
+    -- local ob=down_circle_with_box_create("left",screen_y*0.1,0)
+    -- ob:setPosition(sx/2,400)
+    -- ob_layer:addChild(ob)
     --ob.rect:remove()
     --    local scheduler = require(cc.PACKAGE_NAME .. ".scheduler")
     --    function listener()
